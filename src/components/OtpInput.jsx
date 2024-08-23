@@ -1,8 +1,8 @@
-import React, { useState, useRef } from "react";
-import { View, TextInput } from "react-native";
+import React, {useState, useRef} from 'react';
+import {View, TextInput} from 'react-native';
 
 const OtpInput = () => {
-  const [otp, setOtp] = useState(["", "", "", ""]);
+  const [otp, setOtp] = useState(['', '', '', '']);
   const inputs = useRef([]);
 
   const handleChange = (text, index) => {
@@ -18,24 +18,24 @@ const OtpInput = () => {
     }
   };
 
-  const handleKeyPress = ({ nativeEvent }, index) => {
-    if (nativeEvent.key === "Backspace" && index > 0 && !otp[index]) {
+  const handleKeyPress = ({nativeEvent}, index) => {
+    if (nativeEvent.key === 'Backspace' && index > 0 && !otp[index]) {
       inputs.current[index - 1].focus();
     }
   };
 
   return (
-    <View className="flex-row justify-between mx-8">
+    <View className="flex-row justify-between mx-5">
       {otp.map((digit, index) => (
         <TextInput
-          className="border border-[#C5C5C5] rounded-md text-lg w-[50] h-[50]"
+          className="border border-[#C5C5C5] rounded-md text-lg w-[68] h-[68]"
           key={index}
-          ref={(ref) => (inputs.current[index] = ref)}
+          ref={ref => (inputs.current[index] = ref)}
           placeholder="X"
-          placeholderTextColor={"#C5C5C5"}
+          placeholderTextColor={'#C5C5C5'}
           value={digit}
-          onChangeText={(text) => handleChange(text, index)}
-          onKeyPress={(event) => handleKeyPress(event, index)}
+          onChangeText={text => handleChange(text, index)}
+          onKeyPress={event => handleKeyPress(event, index)}
           keyboardType="number-pad"
           maxLength={1}
           textAlign="center"

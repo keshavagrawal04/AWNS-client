@@ -1,4 +1,5 @@
-import {ScrollView, Text, TouchableOpacity, View} from 'react-native';
+import {ScrollView, Text, TouchableOpacity, View, Image} from 'react-native';
+import images from '../../assets/images';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import React from 'react';
 import {
@@ -25,15 +26,21 @@ const Signup = () => {
 
   return (
     <SafeAreaView>
-      <TouchableOpacity
-        onPress={() => {
-          navigation.navigate('/Login');
-        }}>
-        Back{' '}
-      </TouchableOpacity>
+      <View className="px-2 pt-4">
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('Welcome');
+          }}>
+          <Image
+            source={images.rightArrow}
+            className="w-[30px] h-[25px]"
+            resizeMethod="contain"
+          />
+        </TouchableOpacity>
+      </View>
       <ScrollView>
         <View className="flex justify-center items-center px-4 mt-2">
-          <Text className="text-4xl text-primary font-ubuntu-bold">
+          <Text className="text-4xl text-black font-ubuntu-bold">
             Create an Account
           </Text>
           <Text className="font-poppins-regular text-lg text-gray text-center">
@@ -74,7 +81,7 @@ const Signup = () => {
             title="Login"
             variant="plain"
             handleOnPress={() => {
-              navigation.navigate('/Login');
+              navigation.navigate('Login');
             }}
           />
         </View>

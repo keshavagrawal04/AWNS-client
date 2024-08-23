@@ -16,11 +16,13 @@ function AppNavigation() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        screenOptions={{headerShown: false}}
+        screenOptions={{
+          headerShown: false,
+          contentStyle: {backgroundColor: '#fff'},
+        }}
         initialRouteName="Welcome">
         <Stack.Screen name="Welcome" component={Welcome} />
         <Stack.Screen name="Dashboard" component={Dashboard} />
-
         {/* Authentication Routes */}
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Signup" component={Signup} />

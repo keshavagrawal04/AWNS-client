@@ -1,13 +1,14 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    './screens/**/*.{js,jsx,ts,tsx}',
-    './components/**/*.{js,jsx,ts,tsx}',
+    './src/screens/*.{js,jsx,ts,tsx}',
+    './src/screens/**/*.{js,jsx,ts,tsx}',
+    './src/components/*.{js,jsx,ts,tsx}',
   ],
   theme: {
     extend: {
       colors: {
-        primary: '#0155B7',
+        primary: '#3470ED',
         gray: '#878B9E',
         'light-gray': '#C5C5C5',
       },

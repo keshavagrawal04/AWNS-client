@@ -1,4 +1,5 @@
-import {Text, View, TouchableOpacity} from 'react-native';
+import {Text, View, TouchableOpacity, Image} from 'react-native';
+import images from '../../assets/images';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import React from 'react';
 import {CustomButton, CustomPasswordInput} from '../../components';
@@ -15,15 +16,20 @@ const CreatePassword = () => {
 
   return (
     <SafeAreaView>
-      <TouchableOpacity
-        className="p-4"
-        onPress={() => {
-          navigation.navigate('/OtpVerification');
-        }}>
-        Back
-      </TouchableOpacity>
+      <View className="px-2 pt-4">
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('Welcome');
+          }}>
+          <Image
+            source={images.rightArrow}
+            className="w-[30px] h-[25px]"
+            resizeMethod="contain"
+          />
+        </TouchableOpacity>
+      </View>
       <View className="flex justify-center items-center mt-16">
-        <Text className="text-4xl text-primary font-ubuntu-bold">
+        <Text className="text-4xl text-black font-ubuntu-bold">
           Create a New Password
         </Text>
         <Text className="font-poppins-regular text-lg text-gray text-center">

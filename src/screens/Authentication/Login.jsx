@@ -1,4 +1,5 @@
-import {Text, View, TouchableOpacity} from 'react-native';
+import {Text, View, TouchableOpacity, Image} from 'react-native';
+import images from '../../assets/images';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import React from 'react';
 import {
@@ -19,14 +20,20 @@ const Login = () => {
 
   return (
     <SafeAreaView>
-      <TouchableOpacity
-        onPress={() => {
-          navigation.navigate('/Welcome');
-        }}>
-        Back{' '}
-      </TouchableOpacity>
+      <View className="px-2 pt-4">
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('Welcome');
+          }}>
+          <Image
+            source={images.rightArrow}
+            className="w-[30px] h-[25px]"
+            resizeMethod="contain"
+          />
+        </TouchableOpacity>
+      </View>
       <View className="flex justify-center items-center px-4  mt-16">
-        <Text className="text-4xl text-primary font-ubuntu-bold">
+        <Text className="text-4xl text-black font-ubuntu-bold">
           Welcome Back!
         </Text>
         <Text className="font-poppins-regular text-lg text-gray text-center">
@@ -51,7 +58,7 @@ const Login = () => {
         <CustomButton title="Login" containerStyles={'mt-5'} />
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate('/ForgotPassword');
+            navigation.navigate('ForgotPassword');
           }}>
           <Text className="text-center text-gray text-lg font-poppins-medium mb-0 my-5">
             Forgot Password?
@@ -61,7 +68,7 @@ const Login = () => {
           title="Sign Up"
           variant="plain"
           handleOnPress={() => {
-            navigation.navigate('/Signup');
+            navigation.navigate('Signup');
           }}
         />
       </View>

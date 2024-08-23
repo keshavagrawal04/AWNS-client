@@ -1,4 +1,5 @@
-import {Text, View, TouchableOpacity} from 'react-native';
+import {Text, View, TouchableOpacity, Image} from 'react-native';
+import images from '../../assets/images';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import React from 'react';
 import {CustomButton, CustomTextInput} from '../../components';
@@ -15,15 +16,20 @@ const ForgotPassword = () => {
 
   return (
     <SafeAreaView>
-      <TouchableOpacity
-        className="p-4"
-        onPress={() => {
-          navigation.navigate('/Login');
-        }}>
-        Back
-      </TouchableOpacity>
+      <View className="px-2 pt-4">
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('Welcome');
+          }}>
+          <Image
+            source={images.rightArrow}
+            className="w-[30px] h-[25px]"
+            resizeMethod="contain"
+          />
+        </TouchableOpacity>
+      </View>
       <View className="flex justify-center items-center mt-16">
-        <Text className="text-4xl text-primary font-ubuntu-bold">
+        <Text className="text-4xl text-black font-ubuntu-bold">
           Forgot Your Password?
         </Text>
         <Text className="font-poppins-regular text-lg text-gray text-center px-8">
@@ -42,7 +48,7 @@ const ForgotPassword = () => {
           title="Send OTP"
           containerStyles={'mt-5'}
           handleOnPress={() => {
-            navigation.navigate('/OtpVerification');
+            navigation.navigate('OtpVerification');
           }}
         />
         <CustomButton
@@ -50,7 +56,7 @@ const ForgotPassword = () => {
           title="Login"
           variant="plain"
           handleOnPress={() => {
-            navigation.navigate('/Login');
+            navigation.navigate('Login');
           }}
         />
       </View>

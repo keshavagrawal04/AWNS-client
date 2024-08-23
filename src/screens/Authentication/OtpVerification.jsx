@@ -1,4 +1,5 @@
-import {Text, View, TouchableOpacity} from 'react-native';
+import {Text, View, TouchableOpacity, Image} from 'react-native';
+import images from '../../assets/images';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import React from 'react';
 import {CustomButton, OtpInput} from '../../components';
@@ -15,15 +16,20 @@ const OtpVerification = () => {
 
   return (
     <SafeAreaView>
-      <TouchableOpacity
-        className="p-4"
-        onPress={() => {
-          navigation.navigate('/ForgotPassword');
-        }}>
-        Back{' '}
-      </TouchableOpacity>
+      <View className="px-2 pt-4">
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('Welcome');
+          }}>
+          <Image
+            source={images.rightArrow}
+            className="w-[30px] h-[25px]"
+            resizeMethod="contain"
+          />
+        </TouchableOpacity>
+      </View>
       <View className="flex justify-center items-center mt-16">
-        <Text className="text-4xl text-primary font-ubuntu-bold">
+        <Text className="text-4xl text-black font-ubuntu-bold">
           Verify Your OTP
         </Text>
         <Text className="font-poppins-regular text-lg text-gray text-center px-4">
@@ -32,24 +38,29 @@ const OtpVerification = () => {
       </View>
       <View className="mt-20 px-4">
         <OtpInput />
+        <View className="flex justify-center flex-row mt-8">
+          <Text className="text-center text-lg font-poppins-medium text-gray">
+            If you don’t get OTP :
+          </Text>
+          <TouchableOpacity className="text-center">
+            <Text className="text-black font-poppins-bold text-lg">
+              {'  '}
+              Resend
+              <Image
+                source={images.resend}
+                className="w-[18px] h-[18px]"
+                resizeMethod="contain"
+              />
+            </Text>
+          </TouchableOpacity>
+        </View>
         <CustomButton
           title="Save"
           containerStyles={'mt-12'}
           handleOnPress={() => {
-            navigation.navigate('/CreatePassword');
+            navigation.navigate('CreatePassword');
           }}
         />
-        <View className="flex justify-center flex-row mt-4">
-          <Text className="text-center text-lg font-poppins-medium text-gray">
-            If you don’t get OTP :
-          </Text>
-          <TouchableOpacity className="text-primary text-center">
-            <Text className="text-primary font-poppins-bold text-lg">
-              {' '}
-              Resend
-            </Text>
-          </TouchableOpacity>
-        </View>
       </View>
     </SafeAreaView>
   );
