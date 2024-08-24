@@ -18,7 +18,6 @@ function AppNavigation() {
       <Stack.Navigator
         screenOptions={{
           headerShown: false,
-          contentStyle: {backgroundColor: '#fff'},
         }}
         initialRouteName="Welcome">
         <Stack.Screen name="Welcome" component={Welcome} />

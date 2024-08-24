@@ -55,7 +55,13 @@ const Login = () => {
             formik={formik}
           />
         </View>
-        <CustomButton title="Login" containerStyles={'mt-5'} />
+        <CustomButton
+          title="Login"
+          containerStyles={'mt-5'}
+          handleOnPress={() => {
+            navigation.navigate('Dashboard');
+          }}
+        />
         <TouchableOpacity
           onPress={() => {
             navigation.navigate('ForgotPassword');

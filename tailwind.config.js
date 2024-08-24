@@ -9,8 +9,11 @@ module.exports = {
     extend: {
       colors: {
         primary: '#3470ED',
+        secondary: '#D5E5FF',
         gray: '#878B9E',
         'light-gray': '#C5C5C5',
+        'gray-shade': '#737373',
+        'chart-gray': '#E9EDF0',
       },
       fontFamily: {
         'ubuntu-regular': ['Ubuntu-Regular'],
