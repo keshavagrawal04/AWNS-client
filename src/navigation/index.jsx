@@ -1,14 +1,14 @@
-import * as React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {Dashboard, Welcome} from '../screens';
+import * as React from "react";
+import {NavigationContainer} from "@react-navigation/native";
+import {createNativeStackNavigator} from "@react-navigation/native-stack";
+import {Dashboard, Welcome} from "../screens";
 import {
   CreatePassword,
   ForgotPassword,
   Login,
   OtpVerification,
   Signup,
-} from '../screens/Authentication';
+} from "../screens/Authentication";
 
 const Stack = createNativeStackNavigator();
 

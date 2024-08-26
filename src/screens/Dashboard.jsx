@@ -1,8 +1,8 @@
-import {View, Text, ScrollView, Image} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import React from 'react';
-import images from '../assets/images';
-import {AnalyticsCard} from '../components';
+import {View, Text, ScrollView, Image} from "react-native";
+import {SafeAreaView} from "react-native-safe-area-context";
+import React from "react";
+import images from "../assets/images";
+import {AnalyticsCard} from "../components";
 
 const Dashboard = () => {
   return (
@@ -42,12 +42,12 @@ const Dashboard = () => {
             Today Analystics
           </Text>
           <View className="flex flex-row justify-between mt-5">
-            <AnalyticsCard title={'Reported Employees'} count={140} />
-            <AnalyticsCard title={'Absent Employees'} count={10} />
+            <AnalyticsCard title={"Reported Employees"} count={140} />
+            <AnalyticsCard title={"Absent Employees"} count={10} />
           </View>
           <View className="flex flex-row justify-between mt-3">
-            <AnalyticsCard title={'Sanctioned Leaves'} count={20} />
-            <AnalyticsCard title={'Upcoming Birthdays'} count={5} />
+            <AnalyticsCard title={"Sanctioned Leaves"} count={20} />
+            <AnalyticsCard title={"Upcoming Birthdays"} count={5} />
           </View>
         </View>
 

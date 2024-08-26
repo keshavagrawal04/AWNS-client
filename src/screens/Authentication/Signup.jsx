@@ -1,27 +1,53 @@
-import {ScrollView, Text, TouchableOpacity, View, Image} from 'react-native';
-import images from '../../assets/images';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import React from 'react';
+import {ScrollView, Text, TouchableOpacity, View, Image} from "react-native";
+import images from "../../assets/images";
+import {SafeAreaView} from "react-native-safe-area-context";
+import React from "react";
 import {
   CustomButton,
   CustomPasswordInput,
   CustomTextInput,
-} from '../../components';
-import {useFormik} from 'formik';
-import {useNavigation} from '@react-navigation/native';
+} from "../../components";
+import {useFormik} from "formik";
+import {useNavigation} from "@react-navigation/native";
+import {useSignupMutation} from "../../services/api/authentication";
+import {signupSchema} from "../../schema/Authentication";
+import * as Burnt from "burnt";
 
 const Signup = () => {
   const navigation = useNavigation();
 
+  const [userSignup] = useSignupMutation();
+
   const formik = useFormik({
     initialValues: {
-      email: '',
-      password: '',
-      name: '',
-      phoneNumber: '',
-      role: '',
+      email: "",
+      password: "",
+      name: "",
+      mobileNumber: "",
+      role: "",
     },
-    onSubmit: async values => {},
+    validationSchema: signupSchema,
+    onSubmit: async values => {
+      try {
+        const {data, error} = await userSignup(values);
+        if (data) {
+          Burnt.alert({
+            title: data.message,
+            preset: "done",
+          });
+          console.log(data.message);
+          navigation.navigate("Login");
+        } else {
+          Burnt.alert({
+            title: error.data.message,
+            preset: "error",
+          });
+          console.log(error.data.message);
+        }
+      } catch (error) {
+        console.log(error.message);
+      }
+    },
   });
 
   return (
@@ -29,7 +55,7 @@ const Signup = () => {
       <View className="px-2 pt-4">
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate('Welcome');
+            navigation.navigate("Welcome");
           }}>
           <Image
             source={images.rightArrow}
@@ -49,39 +75,44 @@ const Signup = () => {
         </View>
         <View className="mt-5 px-4">
           <View>
-            <CustomTextInput placeholder={'Name'} id="name" formik={formik} />
+            <CustomTextInput placeholder={"Name"} id="name" formik={formik} />
           </View>
           <View>
-            <CustomTextInput placeholder={'Email'} id="email" formik={formik} />
+            <CustomTextInput placeholder={"Email"} id="email" formik={formik} />
           </View>
           <View>
             <CustomTextInput
-              placeholder={'Phone Number'}
-              id="phoneNumber"
+              placeholder={"Phone Number"}
+              id="mobileNumber"
               formik={formik}
+              type="numeric"
             />
           </View>
           <View>
             <CustomPasswordInput
-              placeholder={'Password'}
+              placeholder={"Password"}
               id="password"
               formik={formik}
             />
           </View>
           <View>
             <CustomTextInput
-              placeholder={'Select Your Role'}
+              placeholder={"Select Your Role"}
               id="role"
               formik={formik}
             />
           </View>
-          <CustomButton title="Sign Up" containerStyles={'mt-4'} />
           <CustomButton
-            containerStyles={'mt-4'}
+            title="Sign Up"
+            containerStyles={"mt-4"}
+            handleOnPress={formik.handleSubmit}
+          />
+          <CustomButton
+            containerStyles={"mt-4"}
             title="Login"
             variant="plain"
             handleOnPress={() => {
-              navigation.navigate('Login');
+              navigation.navigate("Login");
             }}
           />
         </View>

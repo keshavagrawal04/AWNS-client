@@ -1,16 +1,16 @@
-import {Text, View, TouchableOpacity, Image} from 'react-native';
-import images from '../../assets/images';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import React from 'react';
-import {CustomButton, CustomPasswordInput} from '../../components';
-import {useFormik} from 'formik';
-import {useNavigation} from '@react-navigation/native';
+import {Text, View, TouchableOpacity, Image} from "react-native";
+import images from "../../assets/images";
+import {SafeAreaView} from "react-native-safe-area-context";
+import React from "react";
+import {CustomButton, CustomPasswordInput} from "../../components";
+import {useFormik} from "formik";
+import {useNavigation} from "@react-navigation/native";
 
 const CreatePassword = () => {
   const navigation = useNavigation();
 
   const formik = useFormik({
-    initialValues: {password: '', confirmPassword: ''},
+    initialValues: {password: "", confirmPassword: ""},
     onSubmit: async values => {},
   });
 
@@ -19,7 +19,7 @@ const CreatePassword = () => {
       <View className="px-2 pt-4">
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate('Welcome');
+            navigation.navigate("Welcome");
           }}>
           <Image
             source={images.rightArrow}
@@ -39,19 +39,19 @@ const CreatePassword = () => {
       <View className="mt-20 px-4">
         <View>
           <CustomPasswordInput
-            placeholder={'Password'}
+            placeholder={"Password"}
             id="password"
             formik={formik}
           />
         </View>
         <View>
           <CustomPasswordInput
-            placeholder={'Confirm Password'}
+            placeholder={"Confirm Password"}
             id="confirmPassword"
             formik={formik}
           />
         </View>
-        <CustomButton title="Save" containerStyles={'mt-5'} />
+        <CustomButton title="Save" containerStyles={"mt-5"} />
       </View>
     </SafeAreaView>
   );

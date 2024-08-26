@@ -1,8 +1,8 @@
-import {View, Text, Image} from 'react-native';
-import React from 'react';
-import {CustomButton} from '../components';
-import {useNavigation} from '@react-navigation/native';
-import images from '../assets/images';
+import {View, Text, Image} from "react-native";
+import React from "react";
+import {CustomButton} from "../components";
+import {useNavigation} from "@react-navigation/native";
+import images from "../assets/images";
 
 const Welcome = () => {
   const navigation = useNavigation();
@@ -25,10 +25,10 @@ const Welcome = () => {
         />
       </View>
       <CustomButton
-        containerStyles={'mt-28'}
+        containerStyles={"mt-28"}
         title="Get Started"
         handleOnPress={() => {
-          navigation.navigate('Login');
+          navigation.navigate("Login");
         }}
         arrow={true}
       />

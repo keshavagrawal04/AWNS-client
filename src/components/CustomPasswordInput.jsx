@@ -1,8 +1,8 @@
-import { View, TextInput, TouchableOpacity, Text, Image } from "react-native";
-import React, { useState } from "react";
+import {View, TextInput, TouchableOpacity, Text, Image} from "react-native";
+import React, {useState} from "react";
 import images from "../assets/images";
 
-const CustomPasswordInput = ({ placeholder, id, formik }) => {
+const CustomPasswordInput = ({placeholder, id, formik}) => {
   const [isPasswordToggle, setIsPasswordToggle] = useState(true);
 
   return (
@@ -13,15 +13,14 @@ const CustomPasswordInput = ({ placeholder, id, formik }) => {
         onChangeText={formik.handleChange(id)}
         placeholderTextColor="#CDCDE0"
         className={`border border-gray focus:border-primary text-black font-poppins-regular px-5 py-4 rounded-lg text-lg mt-2`}
-        style={{ textAlignVertical: "center" }}
+        style={{textAlignVertical: "center"}}
         secureTextEntry={isPasswordToggle}
       />
       <TouchableOpacity
         className="absolute top-[25px] right-3"
         onPress={() => {
-          setIsPasswordToggle((prev) => !prev);
-        }}
-      >
+          setIsPasswordToggle(prev => !prev);
+        }}>
         {!isPasswordToggle ? (
           <Image source={images.eye} className="w-6 h-6" />
         ) : (

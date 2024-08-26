@@ -1,18 +1,18 @@
-import {TouchableOpacity, Text, Image} from 'react-native';
-import images from '../assets/images';
-import React from 'react';
+import {TouchableOpacity, Text, Image} from "react-native";
+import images from "../assets/images";
+import React from "react";
 
 const CustomButton = ({
   title,
   containerStyles,
   textStyles,
   handleOnPress,
-  variant = 'gradient',
+  variant = "gradient",
   arrow = false,
 }) => {
   return (
     <>
-      {variant === 'gradient' ? (
+      {variant === "gradient" ? (
         <TouchableOpacity
           onPress={handleOnPress}
           className={`${containerStyles} bg-primary rounded-lg p-5`}>

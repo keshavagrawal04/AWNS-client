@@ -1,16 +1,16 @@
-import {Text, View, TouchableOpacity, Image} from 'react-native';
-import images from '../../assets/images';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import React from 'react';
-import {CustomButton, CustomTextInput} from '../../components';
-import {useFormik} from 'formik';
-import {useNavigation} from '@react-navigation/native';
+import {Text, View, TouchableOpacity, Image} from "react-native";
+import images from "../../assets/images";
+import {SafeAreaView} from "react-native-safe-area-context";
+import React from "react";
+import {CustomButton, CustomTextInput} from "../../components";
+import {useFormik} from "formik";
+import {useNavigation} from "@react-navigation/native";
 
 const ForgotPassword = () => {
   const navigation = useNavigation();
 
   const formik = useFormik({
-    initialValues: {email: ''},
+    initialValues: {email: ""},
     onSubmit: async values => {},
   });
 
@@ -19,7 +19,7 @@ const ForgotPassword = () => {
       <View className="px-2 pt-4">
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate('Welcome');
+            navigation.navigate("Welcome");
           }}>
           <Image
             source={images.rightArrow}
@@ -39,24 +39,24 @@ const ForgotPassword = () => {
       <View className="mt-16 px-4">
         <View>
           <CustomTextInput
-            placeholder={'Email Address'}
+            placeholder={"Email Address"}
             id="email"
             formik={formik}
           />
         </View>
         <CustomButton
           title="Send OTP"
-          containerStyles={'mt-5'}
+          containerStyles={"mt-5"}
           handleOnPress={() => {
-            navigation.navigate('OtpVerification');
+            navigation.navigate("OtpVerification");
           }}
         />
         <CustomButton
-          containerStyles={'mt-5'}
+          containerStyles={"mt-5"}
           title="Login"
           variant="plain"
           handleOnPress={() => {
-            navigation.navigate('Login');
+            navigation.navigate("Login");
           }}
         />
       </View>

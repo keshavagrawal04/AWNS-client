@@ -1,16 +1,16 @@
-import {Text, View, TouchableOpacity, Image} from 'react-native';
-import images from '../../assets/images';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import React from 'react';
-import {CustomButton, OtpInput} from '../../components';
-import {useFormik} from 'formik';
-import {useNavigation} from '@react-navigation/native';
+import {Text, View, TouchableOpacity, Image} from "react-native";
+import images from "../../assets/images";
+import {SafeAreaView} from "react-native-safe-area-context";
+import React from "react";
+import {CustomButton, OtpInput} from "../../components";
+import {useFormik} from "formik";
+import {useNavigation} from "@react-navigation/native";
 
 const OtpVerification = () => {
   const navigation = useNavigation();
 
   const formik = useFormik({
-    initialValues: {otp: ''},
+    initialValues: {otp: ""},
     onSubmit: async values => {},
   });
 
@@ -19,7 +19,7 @@ const OtpVerification = () => {
       <View className="px-2 pt-4">
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate('Welcome');
+            navigation.navigate("Welcome");
           }}>
           <Image
             source={images.rightArrow}
@@ -44,7 +44,7 @@ const OtpVerification = () => {
           </Text>
           <TouchableOpacity className="text-center">
             <Text className="text-black font-poppins-bold text-lg">
-              {'  '}
+              {"  "}
               Resend
               <Image
                 source={images.resend}
@@ -56,9 +56,9 @@ const OtpVerification = () => {
         </View>
         <CustomButton
           title="Save"
-          containerStyles={'mt-12'}
+          containerStyles={"mt-12"}
           handleOnPress={() => {
-            navigation.navigate('CreatePassword');
+            navigation.navigate("CreatePassword");
           }}
         />
       </View>

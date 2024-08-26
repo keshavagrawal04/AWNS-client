@@ -1,8 +1,8 @@
-import React, {useState, useRef} from 'react';
-import {View, TextInput} from 'react-native';
+import React, {useState, useRef} from "react";
+import {View, TextInput} from "react-native";
 
 const OtpInput = () => {
-  const [otp, setOtp] = useState(['', '', '', '']);
+  const [otp, setOtp] = useState(["", "", "", ""]);
   const inputs = useRef([]);
 
   const handleChange = (text, index) => {
@@ -19,7 +19,7 @@ const OtpInput = () => {
   };
 
   const handleKeyPress = ({nativeEvent}, index) => {
-    if (nativeEvent.key === 'Backspace' && index > 0 && !otp[index]) {
+    if (nativeEvent.key === "Backspace" && index > 0 && !otp[index]) {
       inputs.current[index - 1].focus();
     }
   };
@@ -32,7 +32,7 @@ const OtpInput = () => {
           key={index}
           ref={ref => (inputs.current[index] = ref)}
           placeholder="X"
-          placeholderTextColor={'#C5C5C5'}
+          placeholderTextColor={"#C5C5C5"}
           value={digit}
           onChangeText={text => handleChange(text, index)}
           onKeyPress={event => handleKeyPress(event, index)}
