@@ -1,7 +1,14 @@
 import * as React from "react";
 import {NavigationContainer} from "@react-navigation/native";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
-import {Dashboard, Welcome} from "../screens";
+import {
+  Dashboard,
+  Welcome,
+  QRScanner,
+  Meeting,
+  Employees,
+  Department,
+} from "../screens";
 import {
   CreatePassword,
   ForgotPassword,
@@ -9,8 +16,17 @@ import {
   OtpVerification,
   Signup,
 } from "../screens/Authentication";
+import {MainLayout} from "../layouts";
 
 const Stack = createNativeStackNavigator();
+
+const withMainLayout = Component => {
+  return props => (
+    <MainLayout {...props}>
+      <Component {...props} />
+    </MainLayout>
+  );
+};
 
 function AppNavigation() {
   return (
@@ -21,7 +37,14 @@ function AppNavigation() {
         }}
         initialRouteName="Welcome">
         <Stack.Screen name="Welcome" component={Welcome} />
-        <Stack.Screen name="Dashboard" component={Dashboard} />
+        <Stack.Screen name="Dashboard" component={withMainLayout(Dashboard)} />
+        <Stack.Screen
+          name="Department"
+          component={withMainLayout(Department)}
+        />
+        <Stack.Screen name="QRScanner" component={withMainLayout(QRScanner)} />
+        <Stack.Screen name="Meeting" component={withMainLayout(Meeting)} />
+        <Stack.Screen name="Employees" component={withMainLayout(Employees)} />
         {/* Authentication Routes */}
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Signup" component={Signup} />

@@ -28,7 +28,7 @@ const Login = () => {
             preset: "done",
           });
           console.log(data.message);
-          navigation.navigate("Dashboard");
+          navigation.navigate("QRScanner");
         } else {
           Burnt.alert({
             title: error.data.message,

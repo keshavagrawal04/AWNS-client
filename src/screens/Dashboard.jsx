@@ -8,26 +8,6 @@ const Dashboard = () => {
   return (
     <SafeAreaView>
       <ScrollView className="px-4">
-        <View className="flex align-middle content-center flex-row py-4 justify-between">
-          <Text className="font-ubuntu-bold text-3xl text-black">
-            Dashboard
-          </Text>
-          <View className="flex gap-3 justify-center align-middle content-center flex-row">
-            <View className="flex align-middle content-center justify-center">
-              <Image
-                source={images.notification}
-                className="w-[26px] h-[26px]"
-                resizeMethod="contain"
-              />
-            </View>
-            <Image
-              source={images.profile}
-              className="w-[42px] h-[42px]"
-              resizeMethod="contain"
-            />
-          </View>
-        </View>
-
         <View className="">
           <View className="px-5 py-6 w-full flex flex-row justify-between bg-primary rounded-md">
             <Text className="text-white font-poppins-bold text-xl">
@@ -105,13 +85,6 @@ const Dashboard = () => {
                 Year
               </Text>
             </View>
-          </View>
-        </View>
-
-        <View className="w-[238px] h-[238px] border-[28px] border-primary rounded-full">
-          <View className="w-[233px] h-[233px] border-[28px] border-chart-gray rounded-full">
-            <Text>90%</Text>
-            <Text>Excellent</Text>
           </View>
         </View>
       </ScrollView>
