@@ -5,6 +5,8 @@ import OtpInput from "./OtpInput";
 import AnalyticsCard from "./AnalyticsCard";
 import Footer from "./Footer";
 import Header from "./Header";
+import Loader from "./Loader";
+import CustomUserInfo from "./CustomUserInfo";
 
 export {
   CustomButton,
@@ -14,4 +16,6 @@ export {
   AnalyticsCard,
   Footer,
   Header,
+  Loader,
+  CustomUserInfo,
 };

@@ -5,12 +5,14 @@ import React from "react";
 import {CustomButton, CustomPasswordInput} from "../../components";
 import {useFormik} from "formik";
 import {useNavigation} from "@react-navigation/native";
+import {createPasswordSchema} from "../../schema/Authentication";
 
 const CreatePassword = () => {
   const navigation = useNavigation();
 
   const formik = useFormik({
     initialValues: {password: "", confirmPassword: ""},
+    validationSchema: createPasswordSchema,
     onSubmit: async values => {},
   });
 
@@ -51,7 +53,7 @@ const CreatePassword = () => {
             formik={formik}
           />
         </View>
-        <CustomButton title="Save" containerStyles={"mt-5"} />
+        <CustomButton title="Save" containerStyles={"mt-5 rounded-lg"} />
       </View>
     </SafeAreaView>
   );

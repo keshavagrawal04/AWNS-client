@@ -6,6 +6,7 @@ import {
   CustomButton,
   CustomPasswordInput,
   CustomTextInput,
+  Loader,
 } from "../../components";
 import {useFormik} from "formik";
 import {useNavigation} from "@react-navigation/native";
@@ -16,7 +17,7 @@ import * as Burnt from "burnt";
 const Signup = () => {
   const navigation = useNavigation();
 
-  const [userSignup] = useSignupMutation();
+  const [userSignup, {isLoading}] = useSignupMutation();
 
   const formik = useFormik({
     initialValues: {
@@ -50,6 +51,8 @@ const Signup = () => {
     },
   });
 
+  if (isLoading) return <Loader />;
+
   return (
     <SafeAreaView>
       <View className="px-2 pt-4">
@@ -75,13 +78,24 @@ const Signup = () => {
         </View>
         <View className="mt-5 px-4">
           <View>
-            <CustomTextInput placeholder={"Name"} id="name" formik={formik} />
-          </View>
-          <View>
-            <CustomTextInput placeholder={"Email"} id="email" formik={formik} />
+            <CustomTextInput
+              inputStyles={"py-4"}
+              placeholder={"Name"}
+              id="name"
+              formik={formik}
+            />
           </View>
           <View>
             <CustomTextInput
+              inputStyles={"py-4"}
+              placeholder={"Email"}
+              id="email"
+              formik={formik}
+            />
+          </View>
+          <View>
+            <CustomTextInput
+              inputStyles={"py-4"}
               placeholder={"Phone Number"}
               id="mobileNumber"
               formik={formik}
@@ -97,6 +111,7 @@ const Signup = () => {
           </View>
           <View>
             <CustomTextInput
+              inputStyles={"py-4"}
               placeholder={"Select Your Role"}
               id="role"
               formik={formik}
@@ -104,11 +119,11 @@ const Signup = () => {
           </View>
           <CustomButton
             title="Sign Up"
-            containerStyles={"mt-4"}
+            containerStyles={"mt-4 rounded-lg"}
             handleOnPress={formik.handleSubmit}
           />
           <CustomButton
-            containerStyles={"mt-4"}
+            containerStyles={"mt-4 rounded-lg"}
             title="Login"
             variant="plain"
             handleOnPress={() => {

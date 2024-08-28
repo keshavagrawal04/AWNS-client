@@ -5,12 +5,14 @@ import React from "react";
 import {CustomButton, CustomTextInput} from "../../components";
 import {useFormik} from "formik";
 import {useNavigation} from "@react-navigation/native";
+import {forgotPasswordSchema} from "../../schema/Authentication";
 
 const ForgotPassword = () => {
   const navigation = useNavigation();
 
   const formik = useFormik({
     initialValues: {email: ""},
+    validationSchema: forgotPasswordSchema,
     onSubmit: async values => {},
   });
 
@@ -39,6 +41,7 @@ const ForgotPassword = () => {
       <View className="mt-16 px-4">
         <View>
           <CustomTextInput
+            inputStyles={"py-4"}
             placeholder={"Email Address"}
             id="email"
             formik={formik}
@@ -46,13 +49,13 @@ const ForgotPassword = () => {
         </View>
         <CustomButton
           title="Send OTP"
-          containerStyles={"mt-5"}
+          containerStyles={"mt-5 rounded-lg"}
           handleOnPress={() => {
             navigation.navigate("OtpVerification");
           }}
         />
         <CustomButton
-          containerStyles={"mt-5"}
+          containerStyles={"mt-5 rounded-lg"}
           title="Login"
           variant="plain"
           handleOnPress={() => {

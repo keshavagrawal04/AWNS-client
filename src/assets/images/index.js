@@ -17,6 +17,9 @@ import qrActive from "./qrActive.png";
 import qrDeactive from "./qrDeactive.png";
 import meetingActive from "./meetingActive.png";
 import meetingDeactive from "./meetingDeactive.png";
+import employeeaddHero from "./employeeadd-hero.png";
+import prevArrow from "./prevArrow.png";
+import nextArrow from "./nextArrow.png";
 
 const images = {
   eye,
@@ -34,10 +37,13 @@ const images = {
   employeeDeactive,
   departmentActive,
   departmentDeactive,
+  employeeaddHero,
   meetingActive,
   meetingDeactive,
   qrActive,
   qrDeactive,
+  prevArrow,
+  nextArrow,
 };
 
 export default images;

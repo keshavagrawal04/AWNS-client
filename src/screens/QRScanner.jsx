@@ -3,10 +3,19 @@ import {useEffect, useState, useRef} from "react";
 import QRCodeScanner from "react-native-qrcode-scanner";
 import {SafeAreaView} from "react-native-safe-area-context";
 import {useAddAttendanceMutation} from "../services/api/attendance";
+import {CustomUserInfo} from "../components";
+import * as Burnt from "burnt";
 
 const QRScanner = () => {
+  const [data, setData] = useState({});
   const [hasCameraPermission, setHasCameraPermission] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
   const scannerRef = useRef(null);
+
+  const toggleModal = () => {
+    setModalVisible(!modalVisible);
+    scannerRef?.current.reactivate();
+  };
 
   const [addAttendance] = useAddAttendanceMutation();
 
@@ -58,24 +67,21 @@ const QRScanner = () => {
         time: currentTime,
       });
 
+      setModalVisible(true);
+
       if (responseData) {
-        Alert.alert("Success", responseData.message, [
-          {
-            text: "OK",
-            onPress: () => {
-              scannerRef.current.reactivate();
-            },
-          },
-        ]);
+        setData(responseData?.user);
+        setModalVisible(true);
+        Burnt.alert({
+          title: responseData?.message,
+          preset: "done",
+        });
       } else {
-        Alert.alert("Error", error.data.message, [
-          {
-            text: "OK",
-            onPress: () => {
-              scannerRef.current.reactivate();
-            },
-          },
-        ]);
+        setData(error?.data?.user);
+        Burnt.alert({
+          title: error?.data?.message,
+          preset: "done",
+        });
       }
     } catch (error) {
       Alert.alert("Error", error.message || "Failed to mark attendance.", [
@@ -110,6 +116,11 @@ const QRScanner = () => {
           markerStyle={styles.markerStyle}
           reactivate={false}
           showMarker={true}
+        />
+        <CustomUserInfo
+          visible={modalVisible}
+          handleClose={toggleModal}
+          user={data}
         />
       </SafeAreaView>
     </>

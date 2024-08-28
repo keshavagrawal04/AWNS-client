@@ -6,19 +6,24 @@ import {
   CustomButton,
   CustomPasswordInput,
   CustomTextInput,
+  Loader,
 } from "../../components";
 import {useFormik} from "formik";
 import {useNavigation} from "@react-navigation/native";
 import {useLoginMutation} from "../../services/api/authentication";
 import * as Burnt from "burnt";
+import {loginSchema} from "../../schema/Authentication";
+import {useAuth} from "../../hooks";
 
 const Login = () => {
   const navigation = useNavigation();
+  const {login, user} = useAuth();
 
-  const [userLogin] = useLoginMutation();
+  const [userLogin, {isLoading}] = useLoginMutation();
 
   const formik = useFormik({
     initialValues: {email: "", password: ""},
+    validationSchema: loginSchema,
     onSubmit: async values => {
       try {
         const {data, error} = await userLogin(values);
@@ -27,11 +32,12 @@ const Login = () => {
             title: data.message,
             preset: "done",
           });
-          console.log(data.message);
-          navigation.navigate("QRScanner");
+          console.log(data?.message);
+          login(data?.data);
+          navigation.navigate(user.profileSetup ? "Dashboard" : "EmployeeAdd");
         } else {
           Burnt.alert({
-            title: error.data.message,
+            title: error?.data?.message,
             preset: "error",
           });
           console.log(error.data.message);
@@ -41,6 +47,8 @@ const Login = () => {
       }
     },
   });
+
+  if (isLoading) return <Loader />;
 
   return (
     <SafeAreaView>
@@ -67,6 +75,7 @@ const Login = () => {
       <View className="mt-20 px-4">
         <View>
           <CustomTextInput
+            inputStyles={"py-4"}
             placeholder={"Email Address"}
             id="email"
             formik={formik}
@@ -81,7 +90,7 @@ const Login = () => {
         </View>
         <CustomButton
           title="Login"
-          containerStyles={"mt-5"}
+          containerStyles={"mt-5 rounded-lg"}
           handleOnPress={formik.handleSubmit}
         />
         <TouchableOpacity
@@ -95,6 +104,7 @@ const Login = () => {
         <CustomButton
           title="Sign Up"
           variant="plain"
+          containerStyles={"rounded-lg"}
           handleOnPress={() => {
             navigation.navigate("Signup");
           }}

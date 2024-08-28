@@ -16,6 +16,7 @@ import {
   OtpVerification,
   Signup,
 } from "../screens/Authentication";
+import {EmployeeAdd, Details} from "../screens/Employee";
 import {MainLayout} from "../layouts";
 
 const Stack = createNativeStackNavigator();
@@ -51,6 +52,9 @@ function AppNavigation() {
         <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
         <Stack.Screen name="CreatePassword" component={CreatePassword} />
         <Stack.Screen name="OtpVerification" component={OtpVerification} />
+        {/* Employee Add */}
+        <Stack.Screen name="EmployeeAdd" component={EmployeeAdd} />
+        <Stack.Screen name="Details" component={Details} />
       </Stack.Navigator>
     </NavigationContainer>
   );
