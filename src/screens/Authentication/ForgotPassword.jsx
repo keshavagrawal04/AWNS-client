@@ -49,13 +49,13 @@ const ForgotPassword = () => {
         </View>
         <CustomButton
           title="Send OTP"
-          containerStyles={"mt-5 rounded-lg"}
+          containerStyles={"mt-5 rounded-lg p-5"}
           handleOnPress={() => {
             navigation.navigate("OtpVerification");
           }}
         />
         <CustomButton
-          containerStyles={"mt-5 rounded-lg"}
+          containerStyles={"mt-5 rounded-lg p-5"}
           title="Login"
           variant="plain"
           handleOnPress={() => {

@@ -1,13 +1,15 @@
 import {View, Text, Image} from "react-native";
-import React from "react";
+import React, {useEffect} from "react";
 import {CustomButton, Loader} from "../components";
 import {useNavigation} from "@react-navigation/native";
 import images from "../assets/images";
 import {useAuth} from "../hooks";
+import {useGetUserInfoQuery} from "../services/api/user";
 
 const Welcome = () => {
   const navigation = useNavigation();
-  const {isLoggedIn, isLoading, user} = useAuth();
+  const {isLoggedIn, isLoading} = useAuth();
+  const {data: userData} = useGetUserInfoQuery();
 
   if (isLoading) return <Loader />;
 
@@ -29,14 +31,14 @@ const Welcome = () => {
         />
       </View>
       <CustomButton
-        containerStyles={"mt-28 rounded-lg"}
+        containerStyles={"mt-28 rounded-lg p-5"}
         title="Get Started"
         handleOnPress={() => {
           navigation.navigate(
             !isLoggedIn
               ? "Login"
-              : user?.profileSetup
-              ? "Dashboard"
+              : userData?.user?.profileSetup
+              ? "EmployeeDashboard"
               : "EmployeeAdd",
           );
         }}

@@ -1,7 +1,6 @@
-import {Text, View, TouchableOpacity, Image, ScrollView} from "react-native";
+import {Text, View, ScrollView} from "react-native";
 import React, {useState} from "react";
 import {SafeAreaView} from "react-native-safe-area-context";
-import images from "../../assets/images";
 import ProfileImage from "./ProfileImage";
 import PersonalInformation from "./PersonalInformation";
 import AdditionalInformation from "./AdditionalInformation";
@@ -41,41 +40,22 @@ const Details = () => {
         </View>
       </View>
 
-      <ScrollView className="mt-5 p-4">
-        {tabIndex === 0 && <ProfileImage />}
-        {tabIndex === 1 && <PersonalInformation />}
-        {tabIndex === 2 && <AdditionalInformation />}
-        {tabIndex === 3 && <BankDetails />}
+      <ScrollView className="mt-5 p-4 flex-1">
+        {tabIndex === 0 && <ProfileImage handleNextTab={handleNextTab} />}
+        {tabIndex === 1 && (
+          <PersonalInformation
+            handleNextTab={handleNextTab}
+            handlePrevTab={handlePrevTab}
+          />
+        )}
+        {tabIndex === 2 && (
+          <AdditionalInformation
+            handleNextTab={handleNextTab}
+            handlePrevTab={handlePrevTab}
+          />
+        )}
+        {tabIndex === 3 && <BankDetails handlePrevTab={handlePrevTab} />}
       </ScrollView>
-
-      <View className="w-full absolute flex flex-row justify-evenly p-4 bottom-0">
-        <TouchableOpacity
-          className={`bg-primary rounded-xl px-5 py-2`}
-          onPress={handlePrevTab}>
-          <Text
-            className={`text-white text-center text-xl font-poppins-medium`}>
-            <Image
-              source={images.prevArrow}
-              className="w-[22px] h-[18px]"
-              resizeMethod="contain"
-            />{" "}
-            Back
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          className={`bg-primary rounded-xl px-5 py-2`}
-          onPress={handleNextTab}>
-          <Text
-            className={`text-white text-center text-xl font-poppins-medium`}>
-            Next{" "}
-            <Image
-              source={images.nextArrow}
-              className="w-[22px] h-[18px]"
-              resizeMethod="contain"
-            />
-          </Text>
-        </TouchableOpacity>
-      </View>
     </SafeAreaView>
   );
 };

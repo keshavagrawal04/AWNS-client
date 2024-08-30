@@ -79,7 +79,7 @@ const Signup = () => {
         <View className="mt-5 px-4">
           <View>
             <CustomTextInput
-              inputStyles={"py-4"}
+              inputStyles={"CustomTextInput"}
               placeholder={"Name"}
               id="name"
               formik={formik}
@@ -119,11 +119,11 @@ const Signup = () => {
           </View>
           <CustomButton
             title="Sign Up"
-            containerStyles={"mt-4 rounded-lg"}
+            containerStyles={"mt-4 rounded-lg p-5"}
             handleOnPress={formik.handleSubmit}
           />
           <CustomButton
-            containerStyles={"mt-4 rounded-lg"}
+            containerStyles={"mt-4 rounded-lg p-5"}
             title="Login"
             variant="plain"
             handleOnPress={() => {

@@ -53,7 +53,7 @@ const CreatePassword = () => {
             formik={formik}
           />
         </View>
-        <CustomButton title="Save" containerStyles={"mt-5 rounded-lg"} />
+        <CustomButton title="Save" containerStyles={"mt-5 rounded-lg p-5"} />
       </View>
     </SafeAreaView>
   );

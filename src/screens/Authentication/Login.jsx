@@ -90,7 +90,7 @@ const Login = () => {
         </View>
         <CustomButton
           title="Login"
-          containerStyles={"mt-5 rounded-lg"}
+          containerStyles={"mt-5 rounded-lg p-5"}
           handleOnPress={formik.handleSubmit}
         />
         <TouchableOpacity
@@ -104,7 +104,7 @@ const Login = () => {
         <CustomButton
           title="Sign Up"
           variant="plain"
-          containerStyles={"rounded-lg"}
+          containerStyles={"rounded-lg p-5"}
           handleOnPress={() => {
             navigation.navigate("Signup");
           }}

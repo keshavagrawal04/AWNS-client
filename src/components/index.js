@@ -7,9 +7,12 @@ import Footer from "./Footer";
 import Header from "./Header";
 import Loader from "./Loader";
 import CustomUserInfo from "./CustomUserInfo";
+import CustomDatePicker from "./CustomDatePicker";
+import CustomSelectField from "./CustomSelectField";
 
 export {
   CustomButton,
+  CustomSelectField,
   CustomTextInput,
   CustomPasswordInput,
   OtpInput,
@@ -18,4 +21,5 @@ export {
   Header,
   Loader,
   CustomUserInfo,
+  CustomDatePicker,
 };

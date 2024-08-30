@@ -24,13 +24,13 @@ const EmployeeAdd = () => {
         <Text className="text-primary text-center text-2xl font-ubuntu-bold">
           Welcome back!
         </Text>
-        <Text className="text-black text-center font-poppins-medium text-sm mt-2">
+        <Text className="text-gray text-center font-poppins-medium text-sm mt-2">
           To get started, please complete your profile by filling in all the
           required details. This helps us ensure everything is up to date.
         </Text>
       </View>
       <CustomButton
-        containerStyles={"mt-5 rounded-lg"}
+        containerStyles={"mt-5 rounded-full p-5"}
         title="Get Started"
         handleOnPress={() => {
           navigation.navigate("Details");

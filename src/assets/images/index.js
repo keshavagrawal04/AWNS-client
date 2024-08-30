@@ -20,6 +20,7 @@ import meetingDeactive from "./meetingDeactive.png";
 import employeeaddHero from "./employeeadd-hero.png";
 import prevArrow from "./prevArrow.png";
 import nextArrow from "./nextArrow.png";
+import pendingApproval from "./pendingApproval.png";
 
 const images = {
   eye,
@@ -38,6 +39,7 @@ const images = {
   departmentActive,
   departmentDeactive,
   employeeaddHero,
+  pendingApproval,
   meetingActive,
   meetingDeactive,
   qrActive,

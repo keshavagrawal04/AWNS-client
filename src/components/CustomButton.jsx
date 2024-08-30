@@ -15,7 +15,7 @@ const CustomButton = ({
       {variant === "gradient" ? (
         <TouchableOpacity
           onPress={handleOnPress}
-          className={`${containerStyles} bg-primary p-5`}>
+          className={`${containerStyles} bg-primary`}>
           <Text
             className={`${textStyles} text-white text-center text-xl font-poppins-medium`}>
             {title}

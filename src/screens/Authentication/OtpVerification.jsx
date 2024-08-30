@@ -56,7 +56,7 @@ const OtpVerification = () => {
         </View>
         <CustomButton
           title="Save"
-          containerStyles={"mt-12 rounded-lg"}
+          containerStyles={"mt-12 rounded-lg p-5"}
           handleOnPress={() => {
             navigation.navigate("CreatePassword");
           }}

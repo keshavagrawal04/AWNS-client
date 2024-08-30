@@ -12,7 +12,7 @@ const CustomPasswordInput = ({placeholder, id, formik}) => {
         value={formik.values[id]}
         onChangeText={formik.handleChange(id)}
         placeholderTextColor="#CDCDE0"
-        className={`border border-gray focus:border-primary text-black font-poppins-regular px-5 py-4 rounded-lg text-lg mt-2`}
+        className={`border border-gray focus:border-primary text-black font-poppins-regular px-5 py-4 rounded-lg text-md mt-2`}
         style={{textAlignVertical: "center"}}
         secureTextEntry={isPasswordToggle}
       />

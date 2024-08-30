@@ -1,20 +1,22 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "http://192.168.178.147:8000/api/",
-  // ## Uncomment and modify if authentication is required
-  // prepareHeaders: (headers) => {
-  //   const token = localStorage.getItem('tokens');
-  //   if (token) {
-  //     headers.set('authorization', `Bearer ${token}`);
-  //   }
-  //   return headers;
-  // },
+  baseUrl: "http://192.168.31.84:8000/api/",
+  prepareHeaders: async headers => {
+    const userData = await AsyncStorage.getItem("user");
+    const data = JSON.parse(userData);
+    if (data?.tokens) {
+      headers.set("authorization", `Bearer ${data?.tokens?.access}`);
+    }
+    return headers;
+  },
 });
 
 const service = createApi({
   reducerPath: "service",
   baseQuery,
+  tagTypes: ["User"],
   endpoints: builder => ({}),
 });
 
