@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from "react";
 import {Text, View, StyleSheet, Image, TouchableOpacity} from "react-native";
-import {CustomButton} from "../../components";
-import icons from "../../assets/icons";
-import images from "../../assets/images";
+import {CustomButton} from "../../../components";
+import icons from "../../../assets/icons";
+import images from "../../../assets/images";
 import ImagePicker from "react-native-image-crop-picker";
 import {useNavigation} from "@react-navigation/native";
 import {
   useUpdateProfileImageMutation,
   useGetUserInfoQuery,
-} from "../../services/api/user";
+} from "../../../services/api/user";
 import * as Burnt from "burnt";
 
 const ProfileImage = ({handleNextTab}) => {

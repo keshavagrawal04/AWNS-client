@@ -1,19 +1,22 @@
 import {View, ScrollView} from "react-native";
-import React from "react";
-import {Footer, Header} from "../components";
-import {useRoute} from "@react-navigation/native";
+import {Footer} from "../components";
+import React, {useState} from "react";
+import {Dashboard, Department, Employees, Meeting, QRScanner} from "../screens";
 
-const MainLayout = ({children}) => {
-  const route = useRoute();
+const MainLayout = () => {
+  const [activeTab, setActiveTab] = useState("Dashboard");
 
   return (
     <View className="flex-1">
-      <View className="w-full">
-        <Header title={route.name} />
-      </View>
-      <ScrollView className="flex-grow">{children}</ScrollView>
+      <ScrollView className="flex-grow">
+        {activeTab === "Dashboard" && <Dashboard />}
+        {activeTab === "Department" && <Department />}
+        {activeTab === "QRScanner" && <QRScanner />}
+        {activeTab === "Meeting" && <Meeting />}
+        {activeTab === "Employees" && <Employees />}
+      </ScrollView>
       <View className="w-full absolute bottom-0">
-        <Footer />
+        <Footer activeTab={activeTab} setActiveTab={setActiveTab} />
       </View>
     </View>
   );

@@ -6,6 +6,7 @@ import {CustomButton, CustomTextInput} from "../../components";
 import {useFormik} from "formik";
 import {useNavigation} from "@react-navigation/native";
 import {forgotPasswordSchema} from "../../schema/Authentication";
+import icons from "../../assets/icons";
 
 const ForgotPassword = () => {
   const navigation = useNavigation();
@@ -24,7 +25,7 @@ const ForgotPassword = () => {
             navigation.navigate("Welcome");
           }}>
           <Image
-            source={images.rightArrow}
+            source={icons.backArrow}
             className="w-[30px] h-[25px]"
             resizeMethod="contain"
           />

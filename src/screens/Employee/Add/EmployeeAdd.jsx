@@ -1,9 +1,9 @@
 import {View, Text, Image} from "react-native";
-import React, {useState} from "react";
-import {CustomButton, Loader} from "../../components";
+import React from "react";
+import {CustomButton, Loader} from "../../../components";
 import {useNavigation} from "@react-navigation/native";
-import images from "../../assets/images";
-import {useAuth} from "../../hooks";
+import images from "../../../assets/images";
+import {useAuth} from "../../../hooks";
 
 const EmployeeAdd = () => {
   const navigation = useNavigation();

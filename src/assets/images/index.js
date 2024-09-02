@@ -21,6 +21,7 @@ import employeeaddHero from "./employeeadd-hero.png";
 import prevArrow from "./prevArrow.png";
 import nextArrow from "./nextArrow.png";
 import pendingApproval from "./pendingApproval.png";
+import nextArrowPrimary from "./nextArrowPrimary.png";
 
 const images = {
   eye,
@@ -46,6 +47,7 @@ const images = {
   qrDeactive,
   prevArrow,
   nextArrow,
+  nextArrowPrimary,
 };
 
 export default images;

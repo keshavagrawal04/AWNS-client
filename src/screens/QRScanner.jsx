@@ -1,15 +1,24 @@
-import {PermissionsAndroid, Platform, Alert, StyleSheet} from "react-native";
+import {
+  PermissionsAndroid,
+  Platform,
+  Alert,
+  StyleSheet,
+  Text,
+  Image,
+  TouchableOpacity,
+} from "react-native";
 import {useEffect, useState, useRef} from "react";
 import QRCodeScanner from "react-native-qrcode-scanner";
 import {SafeAreaView} from "react-native-safe-area-context";
 import {useAddAttendanceMutation} from "../services/api/attendance";
-import {CustomUserInfo} from "../components";
-import * as Burnt from "burnt";
+import {CustomUserInfo, CustomAlert} from "../components";
+import icons from "../assets/icons";
 
 const QRScanner = () => {
   const [data, setData] = useState({});
   const [hasCameraPermission, setHasCameraPermission] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
+  const [showAlert, setShowAlert] = useState({visible: false});
   const scannerRef = useRef(null);
 
   const toggleModal = () => {
@@ -67,20 +76,30 @@ const QRScanner = () => {
         time: currentTime,
       });
 
-      setModalVisible(true);
-
       if (responseData) {
         setData(responseData?.user);
-        setModalVisible(true);
-        Burnt.alert({
-          title: responseData?.message,
-          preset: "done",
+        setShowAlert({
+          visible: true,
+          type: "success",
+          message: responseData?.message,
+          handleClose: () => {
+            setShowAlert({visible: false});
+            setModalVisible(true);
+          },
         });
-      } else {
+      } else if (error) {
         setData(error?.data?.user);
-        Burnt.alert({
-          title: error?.data?.message,
-          preset: "done",
+        setShowAlert({
+          visible: true,
+          type: "error",
+          message: error?.data?.message,
+          handleClose: () => {
+            setShowAlert({visible: false});
+            if (!error?.data?.user) {
+              setModalVisible(false);
+              scannerRef?.current.reactivate();
+            }
+          },
         });
       }
     } catch (error) {
@@ -110,6 +129,16 @@ const QRScanner = () => {
   return (
     <>
       <SafeAreaView className="flex-1 h-[75vh]">
+        <TouchableOpacity className="flex flex-row items-center px-4 py-5">
+          <Image
+            source={icons.backArrow}
+            className="w-7 h-7"
+            resizeMethod="contain"
+          />
+          <Text className="text-black text-3xl font-ubuntu-medium ml-2">
+            Scan
+          </Text>
+        </TouchableOpacity>
         <QRCodeScanner
           ref={scannerRef}
           onRead={handleQRRead}
@@ -121,6 +150,12 @@ const QRScanner = () => {
           visible={modalVisible}
           handleClose={toggleModal}
           user={data}
+        />
+        <CustomAlert
+          visible={showAlert.visible}
+          handleClose={showAlert.handleClose}
+          type={showAlert.type}
+          message={showAlert.message}
         />
       </SafeAreaView>
     </>

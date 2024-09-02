@@ -1,40 +1,52 @@
 import {Text, View, TouchableOpacity, Image} from "react-native";
-import {CustomTextInput, CustomDatePicker} from "../../components";
+import {
+  CustomDatePicker,
+  CustomTextInput,
+  CustomSelectField,
+} from "../../../components";
+import {additionalInfoSchema} from "../../../schema/Employee";
 import {useFormik} from "formik";
-import images from "../../assets/images";
-import {employeePersonalInfoSchema} from "../../schema/Employee";
+import images from "../../../assets/images";
 import {
   useUpdateUserMutation,
   useGetUserInfoQuery,
-} from "../../services/api/user";
+} from "../../../services/api/user";
 import React, {useEffect} from "react";
 import * as Burnt from "burnt";
 import {isEqual} from "lodash";
 
-const PersonalInformation = ({handleNextTab, handlePrevTab}) => {
+const AdditionalInformation = ({handleNextTab, handlePrevTab}) => {
   const [updateUser] = useUpdateUserMutation();
   const {data: userData} = useGetUserInfoQuery();
 
+  const employementTypes = [
+    {label: "Full Time", value: "Full Time"},
+    {label: "Part Time", value: "Part Time"},
+  ];
+
   const formik = useFormik({
     initialValues: {
-      name: "",
-      email: "",
-      alternateMobileNumber: "",
-      mobileNumber: "",
-      dateOfBirth: "",
-      address: "",
+      linkedIn: "",
+      employementType: "",
+      joiningDate: "",
+      education: "",
+      department: "",
     },
-    validationSchema: employeePersonalInfoSchema,
+    validationSchema: additionalInfoSchema,
     onSubmit: async values => {
       try {
-        const hasChanged = !isEqual(values, userData?.user);
-        console.log(hasChanged);
+        const hasChanged = !isEqual(
+          values,
+          userData?.user?.additionalInformation,
+        );
         if (!hasChanged) {
           handleNextTab();
           return;
         }
 
-        const {data, error} = await updateUser(values);
+        const {data, error} = await updateUser({
+          additionalInformation: {...values},
+        });
 
         if (error) {
           Burnt.alert({
@@ -55,70 +67,69 @@ const PersonalInformation = ({handleNextTab, handlePrevTab}) => {
   });
 
   useEffect(() => {
-    if (userData?.user) {
-      Object.keys(userData.user).forEach(key => {
-        if (key === "dateOfBirth") {
-          formik.setFieldValue(key, userData.user[key].split("T")[0], false);
+    if (userData?.user?.additionalInformation) {
+      Object.keys(userData.user?.additionalInformation).forEach(key => {
+        if (key === "joiningDate") {
+          formik.setFieldValue(
+            key,
+            userData.user.additionalInformation[key].split("T")[0],
+            false,
+          );
         } else {
-          formik.setFieldValue(key, userData.user[key], false);
+          formik.setFieldValue(
+            key,
+            userData.user.additionalInformation[key],
+            false,
+          );
         }
       });
     }
   }, [userData?.user]);
 
   return (
-    <View>
+    <View className="flex-1 h-[85vh]">
       <Text className="text-center text-primary font-poppins-medium text-lg">
-        Personal Information
+        Additional Information
       </Text>
       <View className="py-5 px-2">
         <CustomTextInput
-          label={"Name"}
+          label={"LinkedIn"}
           required
-          placeholder={"Name"}
+          placeholder={"Linkedin"}
           formik={formik}
-          id="name"
+          id="linkedIn"
         />
-        <CustomTextInput
-          label={"Email Address"}
+        <CustomSelectField
+          label={"Employement Type"}
           required
-          placeholder={"Email Address"}
+          placeholder={"Employement Type"}
           formik={formik}
-          id="email"
-        />
-        <CustomTextInput
-          label={"Mobile Number"}
-          required
-          placeholder={"Mobile Number"}
-          formik={formik}
-          id="mobileNumber"
-          type="numeric"
-        />
-        <CustomTextInput
-          label={"Alternate Mobile Number"}
-          required
-          placeholder={"Alternate Mobile Number"}
-          formik={formik}
-          id="alternateMobileNumber"
-          type="numeric"
+          id="employementType"
+          data={employementTypes}
         />
         <CustomDatePicker
-          id="dateOfBirth"
-          label="Date of Birth"
-          placeholder="Select your date of birth"
-          formik={formik}
-          datePickerMode="date"
+          label={"Joining Date"}
           required
+          placeholder={"Joining Date"}
+          formik={formik}
+          id="joiningDate"
         />
         <CustomTextInput
-          label={"Address"}
+          label={"Education"}
           required
-          placeholder={"Address"}
+          placeholder={"education"}
           formik={formik}
-          id="address"
+          id="education"
+        />
+        <CustomTextInput
+          label={"Department"}
+          required
+          placeholder={"Department"}
+          formik={formik}
+          id="department"
         />
       </View>
-      <View className="w-full flex flex-row justify-evenly px-4">
+      <View className="absolute bottom-0 w-full flex-row justify-evenly px-4">
         <TouchableOpacity
           className={`border border-gray bg-[#EBEBEB] rounded-full px-8 py-2`}
           onPress={handlePrevTab}>
@@ -150,4 +161,4 @@ const PersonalInformation = ({handleNextTab, handlePrevTab}) => {
   );
 };
 
-export default PersonalInformation;
+export default AdditionalInformation;

@@ -1,12 +1,40 @@
-import {View, Text, ScrollView, Image, TouchableOpacity} from "react-native";
+import {View, Text, ScrollView, Image} from "react-native";
 import {SafeAreaView} from "react-native-safe-area-context";
 import React from "react";
 import images from "../assets/images";
-import {AnalyticsCard} from "../components";
+import {AnalyticsCard, AttendancePieGraph} from "../components";
+import {useGetUserInfoQuery} from "../services/api/user";
 
 const Dashboard = () => {
+  const {data: userData} = useGetUserInfoQuery();
+
   return (
     <SafeAreaView>
+      <View className="flex align-middle content-center flex-row py-4 justify-between px-4">
+        <Text className="font-ubuntu-bold text-3xl text-black">Dashboard</Text>
+        <View className="flex gap-3 justify-center align-middle content-center flex-row">
+          <View className="flex align-middle content-center justify-center">
+            <Image
+              source={images.notification}
+              className="w-[26px] h-[26px]"
+              resizeMethod="contain"
+            />
+          </View>
+          {userData?.user?.profileImage ? (
+            <Image
+              source={{uri: userData?.user?.profileImage}}
+              className="w-[42px] h-[42px] rounded-full"
+              resizeMethod="contain"
+            />
+          ) : (
+            <Image
+              source={images.profile}
+              className="w-[42px] h-[42px]"
+              resizeMethod="contain"
+            />
+          )}
+        </View>
+      </View>
       <ScrollView className="px-4">
         <View className="">
           <View className="px-5 py-6 w-full flex flex-row justify-between bg-primary rounded-md">
@@ -31,61 +59,30 @@ const Dashboard = () => {
           </View>
         </View>
 
-        <View className="bg-white rounded-xl p-5">
-          <Text className="text-black font-poppins-medium text-xl">
-            Attendance Today
-          </Text>
-          <View className="flex flex-row gap-1 mt-2">
-            <View className="flex bg-primary flex-row gap-[1.5px] rounded-full px-2">
-              <Image
-                source={images.filterArrows}
-                className="w-[10px] h-[10px] translate-y-1"
-              />
-              <Text className="text-white font-poppins-medium text-[13px]">
-                Date
-              </Text>
+        <View className="bg-white rounded-xl p-5 mb-28">
+          <AttendancePieGraph
+            containerStyles={""}
+            title={"Attendance Today"}
+            pieStyles={"my-4"}>
+            <View className="mt-4">
+              <View className="flex flex-row justify-between">
+                <Text className="text-light-gray text- font-poppins-medium">
+                  Reported Employees
+                </Text>
+                <Text className="text-black text-lg font-poppins-medium">
+                  140
+                </Text>
+              </View>
+              <View className="flex flex-row justify-between mt-2">
+                <Text className="text-light-gray text- font-poppins-medium">
+                  Absent Employees
+                </Text>
+                <Text className="text-black text-lg font-poppins-medium">
+                  10
+                </Text>
+              </View>
             </View>
-
-            <View className="flex bg-secondary flex-row gap-[1.5px] rounded-full px-2">
-              <Image
-                source={images.filterArrows}
-                className="w-[10px] h-[10px] translate-y-1"
-              />
-              <Text className="text-gray-shade font-poppins-medium text-[13px]">
-                Week
-              </Text>
-            </View>
-
-            <View className="flex bg-secondary flex-row gap-[1.5px] rounded-full px-2">
-              <Image
-                source={images.filterArrows}
-                className="w-[10px] h-[10px] translate-y-1"
-              />
-              <Text className="text-gray-shade font-poppins-medium text-[13px]">
-                Month
-              </Text>
-            </View>
-
-            <View className="flex bg-secondary flex-row gap-[1.5px] rounded-full px-2">
-              <Image
-                source={images.filterArrows}
-                className="w-[10px] h-[10px] translate-y-1"
-              />
-              <Text className="text-gray-shade font-poppins-medium text-[13px]">
-                Quarter
-              </Text>
-            </View>
-
-            <View className="flex bg-secondary flex-row gap-[1.5px] rounded-full px-2">
-              <Image
-                source={images.filterArrows}
-                className="w-[10px] h-[10px] translate-y-1"
-              />
-              <Text className="text-gray-shade font-poppins-medium text-[13px]">
-                Year
-              </Text>
-            </View>
-          </View>
+          </AttendancePieGraph>
         </View>
       </ScrollView>
     </SafeAreaView>

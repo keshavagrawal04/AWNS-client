@@ -1,5 +1,5 @@
 import {View, Text, Image} from "react-native";
-import images from "../../assets/images";
+import images from "../../../assets/images";
 
 const PendingApproval = () => {
   return (

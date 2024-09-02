@@ -7,15 +7,17 @@ import {
   CustomPasswordInput,
   CustomTextInput,
   Loader,
+  CustomAlert,
 } from "../../components";
 import {useFormik} from "formik";
 import {useNavigation} from "@react-navigation/native";
 import {useSignupMutation} from "../../services/api/authentication";
 import {signupSchema} from "../../schema/Authentication";
-import * as Burnt from "burnt";
 
 const Signup = () => {
   const navigation = useNavigation();
+
+  const [showAlert, setShowAlert] = useState({visible: false});
 
   const [userSignup, {isLoading}] = useSignupMutation();
 
@@ -32,16 +34,24 @@ const Signup = () => {
       try {
         const {data, error} = await userSignup(values);
         if (data) {
-          Burnt.alert({
-            title: data.message,
-            preset: "done",
-          });
           console.log(data.message);
-          navigation.navigate("Login");
+          setShowAlert({
+            visible: true,
+            type: "success",
+            message: data?.message,
+            handleClose: () => {
+              setShowAlert({visible: false});
+              navigation.navigate("Login");
+            },
+          });
         } else {
-          Burnt.alert({
-            title: error.data.message,
-            preset: "error",
+          setShowAlert({
+            visible: true,
+            type: "error",
+            message: error?.data?.message,
+            handleClose: () => {
+              setShowAlert({visible: false});
+            },
           });
           console.log(error.data.message);
         }
@@ -132,6 +142,12 @@ const Signup = () => {
           />
         </View>
       </ScrollView>
+      <CustomAlert
+        visible={showAlert.visible}
+        handleClose={showAlert.handleClose}
+        type={showAlert.type}
+        message={showAlert.message}
+      />
     </SafeAreaView>
   );
 };

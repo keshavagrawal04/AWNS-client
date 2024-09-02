@@ -1,22 +1,25 @@
 import {Text, View, TouchableOpacity, Image} from "react-native";
 import images from "../../assets/images";
 import {SafeAreaView} from "react-native-safe-area-context";
-import React from "react";
+import React, {useState} from "react";
 import {
   CustomButton,
   CustomPasswordInput,
   CustomTextInput,
   Loader,
+  CustomAlert,
 } from "../../components";
 import {useFormik} from "formik";
 import {useNavigation} from "@react-navigation/native";
 import {useLoginMutation} from "../../services/api/authentication";
-import * as Burnt from "burnt";
 import {loginSchema} from "../../schema/Authentication";
 import {useAuth} from "../../hooks";
 
 const Login = () => {
   const navigation = useNavigation();
+
+  const [showAlert, setShowAlert] = useState({visible: false});
+
   const {login, user} = useAuth();
 
   const [userLogin, {isLoading}] = useLoginMutation();
@@ -28,19 +31,29 @@ const Login = () => {
       try {
         const {data, error} = await userLogin(values);
         if (data) {
-          Burnt.alert({
-            title: data.message,
-            preset: "done",
-          });
           console.log(data?.message);
           login(data?.data);
-          navigation.navigate(user.profileSetup ? "Dashboard" : "EmployeeAdd");
-        } else {
-          Burnt.alert({
-            title: error?.data?.message,
-            preset: "error",
+          setShowAlert({
+            visible: true,
+            type: "success",
+            message: data?.message,
+            handleClose: () => {
+              setShowAlert({visible: false});
+              navigation.navigate(
+                user.profileSetup ? "Dashboard" : "EmployeeAdd",
+              );
+            },
           });
+        } else {
           console.log(error.data.message);
+          setShowAlert({
+            visible: true,
+            type: "error",
+            message: error?.data?.message,
+            handleClose: () => {
+              setShowAlert({visible: false});
+            },
+          });
         }
       } catch (error) {
         console.log(error.message);
@@ -110,6 +123,12 @@ const Login = () => {
           }}
         />
       </View>
+      <CustomAlert
+        visible={showAlert.visible}
+        handleClose={showAlert.handleClose}
+        type={showAlert.type}
+        message={showAlert.message}
+      />
     </SafeAreaView>
   );
 };

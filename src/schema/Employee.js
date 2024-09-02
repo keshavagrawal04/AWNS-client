@@ -29,7 +29,7 @@ export const additionalInfoSchema = Yup.object({
     .url("Must be a valid URL")
     .required("LinkedIn profile is required"),
   employementType: Yup.string()
-    .oneOf(["full-time", "part-time", "contract"], "Invalid employment type")
+    .oneOf(["Full Time", "Part Time"], "Invalid employment type")
     .required("Employment type is required"),
   joiningDate: Yup.string().required("Joining date is required"),
   education: Yup.string()
@@ -65,4 +65,10 @@ export const bankDetailsSchema = Yup.object().shape({
   ifsc: Yup.string()
     .required("IFSC code is required")
     .matches(/^[A-Z]{4}0[A-Z0-9]{6}$/, "Invalid IFSC code format"),
+});
+
+export const leaveSchema = Yup.object().shape({
+  title: Yup.string().required("Title is required"),
+  date: Yup.string().required("Date is required"),
+  reason: Yup.string().required("Reason is required"),
 });

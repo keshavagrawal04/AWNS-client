@@ -16,6 +16,8 @@ module.exports = {
         "light-gray": "#C5C5C5",
         "gray-shade": "#737373",
         "chart-gray": "#E9EDF0",
+        red: "#ED2E2E",
+        green: "#03D155",
       },
       fontFamily: {
         "ubuntu-regular": ["Ubuntu-Regular"],

@@ -2,13 +2,13 @@ import {Text, View, TouchableOpacity, Image} from "react-native";
 import {
   useUpdateUserMutation,
   useGetUserInfoQuery,
-} from "../../services/api/user";
+} from "../../../services/api/user";
 import React, {useEffect} from "react";
 import * as Burnt from "burnt";
-import {CustomTextInput} from "../../components";
+import {CustomTextInput} from "../../../components";
 import {useFormik} from "formik";
-import images from "../../assets/images";
-import {bankDetailsSchema} from "../../schema/Employee";
+import images from "../../../assets/images";
+import {bankDetailsSchema} from "../../../schema/Employee";
 import {isEqual} from "lodash";
 import {useNavigation} from "@react-navigation/native";
 
