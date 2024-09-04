@@ -2,9 +2,13 @@ import {Text, TouchableOpacity, Image, ScrollView, View} from "react-native";
 import {SafeAreaView} from "react-native-safe-area-context";
 import icons from "../../../assets/icons";
 import {useNavigation} from "@react-navigation/native";
-import {useGetUserInfoQuery} from "../../../services/api/user";
+import {
+  useGetUserInfoQuery,
+  useUpdateUserMutation,
+} from "../../../services/api/user";
 import ImagePicker from "react-native-image-crop-picker";
 import {
+  CustomAlert,
   CustomButton,
   FloatingLabelDateInput,
   FloatingLabelTextInput,
@@ -12,12 +16,14 @@ import {
 } from "../../../components";
 import {useFormik} from "formik";
 import {profileSchema} from "../../../schema/Employee";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import images from "../../../assets/images";
 
 const UpdateProfile = () => {
   const navigation = useNavigation();
   const {data: userData, isLoading} = useGetUserInfoQuery();
+  const [updateProfile, {isLoading: isUpdateLoading}] = useUpdateUserMutation();
+  const [showAlert, setShowAlert] = useState({visible: false});
 
   const formik = useFormik({
     initialValues: {
@@ -45,8 +51,34 @@ const UpdateProfile = () => {
       role: "employee",
     },
     validationSchema: profileSchema,
-    onSubmit: values => {
-      console.log(values);
+    onSubmit: async values => {
+      try {
+        const {data, error} = await updateProfile(values);
+        if (data) {
+          console.log(data?.message);
+          setShowAlert({
+            visible: true,
+            type: "success",
+            message: data?.message,
+            handleClose: () => {
+              setShowAlert({visible: false});
+              navigation.navigate("Profile");
+            },
+          });
+        } else {
+          console.log(error.data.message);
+          setShowAlert({
+            visible: true,
+            type: "error",
+            message: error?.data?.message,
+            handleClose: () => {
+              setShowAlert({visible: false});
+            },
+          });
+        }
+      } catch (error) {
+        console.log(error.message);
+      }
     },
   });
 
@@ -62,7 +94,6 @@ const UpdateProfile = () => {
         profileImage,
         additionalInformation,
         bankDetails,
-        role,
       } = userData.user;
 
       formik.setValues({
@@ -87,7 +118,6 @@ const UpdateProfile = () => {
           ifsc: bankDetails?.ifsc || "",
           accountNumber: bankDetails?.accountNumber || "",
         },
-        role: role || "employee",
       });
     }
   }, [userData?.user]);
@@ -111,7 +141,7 @@ const UpdateProfile = () => {
       });
   };
 
-  if (isLoading) return <Loader />;
+  if (isLoading || isUpdateLoading) return <Loader />;
 
   return (
     <SafeAreaView>
@@ -293,6 +323,12 @@ const UpdateProfile = () => {
         />
         <View className="h-10px mt-28"></View>
       </ScrollView>
+      <CustomAlert
+        visible={showAlert.visible}
+        handleClose={showAlert.handleClose}
+        type={showAlert.type}
+        message={showAlert.message}
+      />
     </SafeAreaView>
   );
 };

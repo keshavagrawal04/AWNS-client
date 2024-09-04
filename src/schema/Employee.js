@@ -73,7 +73,7 @@ export const leaveSchema = Yup.object().shape({
   reason: Yup.string().required("Reason is required"),
 });
 
-Yup.object().shape({
+export const profileSchema = Yup.object().shape({
   name: Yup.string().required("Name is required"),
   email: Yup.string()
     .email("Invalid email format")
@@ -87,7 +87,7 @@ Yup.object().shape({
     .min(10, "Alternate mobile number must be at least 10 digits")
     .required("Alternate mobile number is required"),
   address: Yup.string().required("Address is required"),
-  dateOfBirth: Yup.date().required("Date of Birth is required"),
+  dateOfBirth: Yup.string().required("Date of Birth is required"),
   profileImage: Yup.string().required("Profile image URL is required"),
   additionalInformation: Yup.object()
     .shape({
@@ -95,7 +95,7 @@ Yup.object().shape({
         .url("Invalid URL format")
         .required("LinkedIn URL is required"),
       employementType: Yup.string().required("Employment Type is required"),
-      joiningDate: Yup.date().required("Joining Date is required"),
+      joiningDate: Yup.string().required("Joining Date is required"),
       education: Yup.string().required("Education is required"),
       department: Yup.string().required("Department is required"),
     })

@@ -28,7 +28,7 @@ function AppNavigation() {
         screenOptions={{
           headerShown: false,
         }}
-        initialRouteName="Dashboard">
+        initialRouteName="Welcome">
         <Stack.Screen name="Welcome" component={Welcome} />
         <Stack.Screen name="Dashboard" component={MainLayout} />
         <Stack.Screen name="AddMeeting" component={AddMeeting} />

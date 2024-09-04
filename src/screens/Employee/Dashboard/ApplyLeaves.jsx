@@ -1,24 +1,65 @@
 import {Text, TouchableOpacity, Image, ScrollView, View} from "react-native";
-import React from "react";
+import React, {useState} from "react";
 import {SafeAreaView} from "react-native-safe-area-context";
 import icons from "../../../assets/icons";
 import {useNavigation} from "@react-navigation/native";
 import {useFormik} from "formik";
 import {leaveSchema} from "../../../schema/Employee";
 import {
+  CustomAlert,
   CustomButton,
   FloatingLabelDateInput,
   FloatingLabelTextInput,
+  Loader,
 } from "../../../components";
+import {useApplyLeaveMutation} from "../../../services/api/leave";
+import {useAuth} from "../../../hooks";
 
 const ApplyLeaves = () => {
   const navigation = useNavigation();
+  const {user} = useAuth();
+  const [applyLeave, {isLoading}] = useApplyLeaveMutation();
+  const [showAlert, setShowAlert] = useState({visible: false});
 
   const formik = useFormik({
     initialValues: {title: "", date: "", reason: ""},
     validationSchema: leaveSchema,
-    onSubmit: () => {},
+    onSubmit: async values => {
+      try {
+        const payload = {
+          user: user.id,
+          ...values,
+        };
+        const {data, error} = await applyLeave(payload);
+        if (data) {
+          console.log(data?.message);
+          setShowAlert({
+            visible: true,
+            type: "success",
+            message: data?.message,
+            handleClose: () => {
+              setShowAlert({visible: false});
+              navigation.navigate("Leaves");
+            },
+          });
+        } else {
+          console.log(error.data.message);
+          setShowAlert({
+            visible: true,
+            type: "error",
+            message: error?.data?.message,
+            handleClose: () => {
+              setShowAlert({visible: false});
+            },
+          });
+        }
+      } catch (error) {
+        console.log(error.message);
+      }
+    },
   });
+
+  if (isLoading) return <Loader />;
 
   return (
     <SafeAreaView>
@@ -39,7 +80,7 @@ const ApplyLeaves = () => {
       <ScrollView className="px-6 mt-4">
         <View className="mb-2">
           <FloatingLabelTextInput
-            id={"TITLE"}
+            id={"title"}
             label={"Enter Title"}
             formik={formik}
             inputStyles={"py-4"}
@@ -72,6 +113,12 @@ const ApplyLeaves = () => {
           handleOnPress={formik.handleSubmit}
         />
       </ScrollView>
+      <CustomAlert
+        visible={showAlert.visible}
+        handleClose={showAlert.handleClose}
+        type={showAlert.type}
+        message={showAlert.message}
+      />
     </SafeAreaView>
   );
 };

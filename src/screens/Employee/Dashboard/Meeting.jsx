@@ -1,33 +1,22 @@
 import {View} from "react-native";
-import {MeetingCard} from "../../../components";
+import {Loader, MeetingCard} from "../../../components";
 import React from "react";
+import {useGetMeetingsQuery} from "../../../services/api/meeting";
 
 const Meeting = () => {
-  const meetings = [
-    {
-      id: 1,
-      title: "Meet 1",
-      date: "12/08/2024",
-      link: "https://meet.google.com/zqe-pmgs-sac",
-      purpose: "This meeting for the project discussion",
-    },
-    {
-      id: 2,
-      title: "Meet 2",
-      date: "12/08/2024",
-      link: "https://meet.google.com/zqe-pmgs-sac",
-      purpose: "This meeting for the project discussion",
-    },
-  ];
+  const {data: meetingsData, isLoading} = useGetMeetingsQuery();
+
+  if (isLoading) return <Loader />;
 
   return (
     <View className="mt-10 mx-4">
-      {meetings?.map(meet => (
-        <View key={meet.id} className="mb-4">
+      {meetingsData?.data?.map(meet => (
+        <View key={meet._id} className="mb-4">
           <MeetingCard
+            id={meet._id}
             title={meet.title}
             date={meet.date}
-            link={meet.link}
+            link={meet.meetingLink}
             purpose={meet.purpose}
           />
         </View>
