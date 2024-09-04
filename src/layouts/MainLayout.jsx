@@ -8,13 +8,13 @@ const MainLayout = () => {
 
   return (
     <View className="flex-1">
-      <ScrollView className="flex-grow">
+      <View className="flex-grow">
         {activeTab === "Dashboard" && <Dashboard />}
         {activeTab === "Department" && <Department />}
         {activeTab === "QRScanner" && <QRScanner />}
         {activeTab === "Meeting" && <Meeting />}
         {activeTab === "Employees" && <Employees />}
-      </ScrollView>
+      </View>
       <View className="w-full absolute bottom-0">
         <Footer activeTab={activeTab} setActiveTab={setActiveTab} />
       </View>

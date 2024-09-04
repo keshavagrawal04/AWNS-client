@@ -5,7 +5,7 @@ import {
 } from "../../../services/api/user";
 import React, {useEffect} from "react";
 import * as Burnt from "burnt";
-import {CustomTextInput} from "../../../components";
+import {FloatingLabelTextInput} from "../../../components";
 import {useFormik} from "formik";
 import images from "../../../assets/images";
 import {bankDetailsSchema} from "../../../schema/Employee";
@@ -79,39 +79,39 @@ const BankDetails = ({handlePrevTab}) => {
         Bank Details
       </Text>
       <View className="py-5 px-2">
-        <CustomTextInput
+        <FloatingLabelTextInput
+          inputStyles={"py-4"}
           label={"Bank Name"}
           required
-          placeholder={"Bank Name"}
           formik={formik}
           id="bankName"
         />
-        <CustomTextInput
+        <FloatingLabelTextInput
+          inputStyles={"py-4"}
           label={"Branch Name"}
           required
-          placeholder={"Branch Name"}
           formik={formik}
           id="branchName"
         />
-        <CustomTextInput
+        <FloatingLabelTextInput
+          inputStyles={"py-4"}
           label={"Account Holder Name"}
           required
-          placeholder={"Account Holder Name"}
           formik={formik}
           id="accountHolderName"
         />
-        <CustomTextInput
+        <FloatingLabelTextInput
+          inputStyles={"py-4"}
           label={"Account Number"}
           required
-          placeholder={"Account Number"}
           formik={formik}
           id="accountNumber"
           type="numeric"
         />
-        <CustomTextInput
+        <FloatingLabelTextInput
+          inputStyles={"py-4"}
           label={"IFSC Code"}
           required
-          placeholder={"IFSC Code"}
           formik={formik}
           id="ifsc"
         />

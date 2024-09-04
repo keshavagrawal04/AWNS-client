@@ -72,3 +72,45 @@ export const leaveSchema = Yup.object().shape({
   date: Yup.string().required("Date is required"),
   reason: Yup.string().required("Reason is required"),
 });
+
+Yup.object().shape({
+  name: Yup.string().required("Name is required"),
+  email: Yup.string()
+    .email("Invalid email format")
+    .required("Email is required"),
+  mobileNumber: Yup.string()
+    .matches(/^[0-9]+$/, "Mobile number must be only digits")
+    .min(10, "Mobile number must be at least 10 digits")
+    .required("Mobile number is required"),
+  alternateMobileNumber: Yup.string()
+    .matches(/^[0-9]+$/, "Alternate mobile number must be only digits")
+    .min(10, "Alternate mobile number must be at least 10 digits")
+    .required("Alternate mobile number is required"),
+  address: Yup.string().required("Address is required"),
+  dateOfBirth: Yup.date().required("Date of Birth is required"),
+  profileImage: Yup.string().required("Profile image URL is required"),
+  additionalInformation: Yup.object()
+    .shape({
+      linkedIn: Yup.string()
+        .url("Invalid URL format")
+        .required("LinkedIn URL is required"),
+      employementType: Yup.string().required("Employment Type is required"),
+      joiningDate: Yup.date().required("Joining Date is required"),
+      education: Yup.string().required("Education is required"),
+      department: Yup.string().required("Department is required"),
+    })
+    .required("Additional Information is required"),
+  bankDetails: Yup.object()
+    .shape({
+      bankName: Yup.string().required("Bank name is required"),
+      branchName: Yup.string().required("Branch name is required"),
+      accountHolderName: Yup.string().required(
+        "Account holder name is required",
+      ),
+      ifsc: Yup.string().required("IFSC code is required"),
+      accountNumber: Yup.string()
+        .matches(/^[0-9]+$/, "Account number must be only digits")
+        .required("Account number is required"),
+    })
+    .required("Bank Details are required"),
+});

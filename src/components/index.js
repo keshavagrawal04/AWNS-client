@@ -13,6 +13,10 @@ import AttendancePieGraph from "./AttendancePieGraph";
 import CustomAlert from "./CustomAlert";
 import MeetingCard from "./MeetingCard";
 import LeaveCard from "./LeaveCard";
+import LogoutModal from "./LogoutModal";
+import FloatingLabelTextInput from "./FloatingLabelTextInput";
+import FloatingLabelDateInput from "./FloatingLabelDateInput";
+import FloatingLabelTimeInput from "./FloatingLabelTimeInput";
 
 export {
   CustomButton,
@@ -30,4 +34,8 @@ export {
   CustomAlert,
   MeetingCard,
   LeaveCard,
+  LogoutModal,
+  FloatingLabelTextInput,
+  FloatingLabelDateInput,
+  FloatingLabelTimeInput,
 };

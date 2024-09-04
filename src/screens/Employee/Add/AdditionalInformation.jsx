@@ -1,8 +1,8 @@
 import {Text, View, TouchableOpacity, Image} from "react-native";
 import {
-  CustomDatePicker,
-  CustomTextInput,
+  FloatingLabelTextInput,
   CustomSelectField,
+  FloatingLabelDateInput,
 } from "../../../components";
 import {additionalInfoSchema} from "../../../schema/Employee";
 import {useFormik} from "formik";
@@ -92,10 +92,10 @@ const AdditionalInformation = ({handleNextTab, handlePrevTab}) => {
         Additional Information
       </Text>
       <View className="py-5 px-2">
-        <CustomTextInput
+        <FloatingLabelTextInput
+          inputStyles={"py-4"}
           label={"LinkedIn"}
           required
-          placeholder={"Linkedin"}
           formik={formik}
           id="linkedIn"
         />
@@ -107,24 +107,24 @@ const AdditionalInformation = ({handleNextTab, handlePrevTab}) => {
           id="employementType"
           data={employementTypes}
         />
-        <CustomDatePicker
+        <FloatingLabelDateInput
+          inputStyles={"py-4"}
           label={"Joining Date"}
           required
-          placeholder={"Joining Date"}
           formik={formik}
           id="joiningDate"
         />
-        <CustomTextInput
+        <FloatingLabelTextInput
+          inputStyles={"py-4"}
           label={"Education"}
           required
-          placeholder={"education"}
           formik={formik}
           id="education"
         />
-        <CustomTextInput
+        <FloatingLabelTextInput
+          inputStyles={"py-4"}
           label={"Department"}
           required
-          placeholder={"Department"}
           formik={formik}
           id="department"
         />

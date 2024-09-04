@@ -1,11 +1,10 @@
 import {ScrollView, Text, TouchableOpacity, View, Image} from "react-native";
 import images from "../../assets/images";
 import {SafeAreaView} from "react-native-safe-area-context";
-import React from "react";
+import React, {useState} from "react";
 import {
   CustomButton,
-  CustomPasswordInput,
-  CustomTextInput,
+  FloatingLabelTextInput,
   Loader,
   CustomAlert,
 } from "../../components";
@@ -88,41 +87,43 @@ const Signup = () => {
         </View>
         <View className="mt-5 px-4">
           <View>
-            <CustomTextInput
-              inputStyles={"CustomTextInput"}
-              placeholder={"Name"}
+            <FloatingLabelTextInput
+              inputStyles={"py-4"}
+              label={"Name"}
               id="name"
               formik={formik}
             />
           </View>
           <View>
-            <CustomTextInput
+            <FloatingLabelTextInput
               inputStyles={"py-4"}
-              placeholder={"Email"}
+              label={"Email"}
               id="email"
               formik={formik}
             />
           </View>
           <View>
-            <CustomTextInput
+            <FloatingLabelTextInput
               inputStyles={"py-4"}
-              placeholder={"Phone Number"}
+              label={"Phone Number"}
               id="mobileNumber"
               formik={formik}
               type="numeric"
             />
           </View>
           <View>
-            <CustomPasswordInput
-              placeholder={"Password"}
+            <FloatingLabelTextInput
+              inputStyles={"py-4"}
+              label={"Password"}
               id="password"
               formik={formik}
+              isPassword
             />
           </View>
           <View>
-            <CustomTextInput
+            <FloatingLabelTextInput
               inputStyles={"py-4"}
-              placeholder={"Select Your Role"}
+              label={"Select Your Role"}
               id="role"
               formik={formik}
             />

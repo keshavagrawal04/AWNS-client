@@ -4,10 +4,9 @@ import {SafeAreaView} from "react-native-safe-area-context";
 import React, {useState} from "react";
 import {
   CustomButton,
-  CustomPasswordInput,
-  CustomTextInput,
   Loader,
   CustomAlert,
+  FloatingLabelTextInput,
 } from "../../components";
 import {useFormik} from "formik";
 import {useNavigation} from "@react-navigation/native";
@@ -39,9 +38,15 @@ const Login = () => {
             message: data?.message,
             handleClose: () => {
               setShowAlert({visible: false});
-              navigation.navigate(
-                user.profileSetup ? "Dashboard" : "EmployeeAdd",
-              );
+              if (user?.role === "admin") {
+                navigation.navigate(
+                  user?.profileSetup ? "Dashboard" : "EmployeeAdd",
+                );
+              } else {
+                navigation.navigate(
+                  user?.profileSetup ? "EmployeeDashboard" : "EmployeeAdd",
+                );
+              }
             },
           });
         } else {
@@ -87,18 +92,20 @@ const Login = () => {
       </View>
       <View className="mt-20 px-4">
         <View>
-          <CustomTextInput
+          <FloatingLabelTextInput
             inputStyles={"py-4"}
-            placeholder={"Email Address"}
+            label={"Email Address"}
             id="email"
             formik={formik}
           />
         </View>
         <View>
-          <CustomPasswordInput
-            placeholder={"Password"}
+          <FloatingLabelTextInput
+            inputStyles={"py-4"}
+            label={"Password"}
             id="password"
             formik={formik}
+            isPassword
           />
         </View>
         <CustomButton

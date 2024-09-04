@@ -3,13 +3,16 @@ import {SafeAreaView} from "react-native-safe-area-context";
 import icons from "../../../assets/icons";
 import {useNavigation} from "@react-navigation/native";
 import {useGetUserInfoQuery} from "../../../services/api/user";
-import {Loader} from "../../../components";
-import React from "react";
+import {Loader, LogoutModal} from "../../../components";
 import images from "../../../assets/images";
+import {useAuth} from "../../../hooks";
+import React, {useState} from "react";
 
 const Profile = () => {
   const navigation = useNavigation();
   const {data: userData, isLoading} = useGetUserInfoQuery();
+  const {logout} = useAuth();
+  const [isLogoutModalVisible, setIsLogoutModalVisible] = useState(false);
   const {user} = userData;
 
   if (isLoading) return <Loader />;
@@ -33,14 +36,22 @@ const Profile = () => {
           </Text>
         </TouchableOpacity>
         <View className="flex flex-row items-center gap-2">
-          <TouchableOpacity className="border border-primary rounded-full p-2">
+          <TouchableOpacity
+            className="border border-primary rounded-full p-2"
+            onPress={() => {
+              navigation.navigate("UpdateProfile");
+            }}>
             <Image
               source={icons.edit}
               className="w-[20px] h-[20px]"
               resizeMode="contain"
             />
           </TouchableOpacity>
-          <TouchableOpacity className="rounded-md p-2 flex flex-row bg-[#ed2e2e1a] items-center justify-center">
+          <TouchableOpacity
+            className="rounded-md p-2 flex flex-row bg-[#ed2e2e1a] items-center justify-center"
+            onPress={() => {
+              setIsLogoutModalVisible(true);
+            }}>
             <Image
               source={icons.logout}
               className="w-[20px] h-[20px] my-auto"
@@ -52,7 +63,7 @@ const Profile = () => {
       </View>
 
       {/* Profile and Department Section */}
-      <ScrollView className="px-6 mt-6 h-full bg-red">
+      <ScrollView className="px-6 pt-6 h-full">
         <View className="flex flex-row gap-3">
           {user?.profileImage ? (
             <Image
@@ -266,10 +277,19 @@ const Profile = () => {
             </View>
           </View>
         </View>
-        <View className="mb-24">
-          <Text>End</Text>
-        </View>
+        <View className="mb-24"></View>
       </ScrollView>
+      <LogoutModal
+        visible={isLogoutModalVisible}
+        handleClose={() => {
+          setIsLogoutModalVisible(prev => !prev);
+        }}
+        handleYes={() => {
+          setIsLogoutModalVisible(prev => !prev);
+          logout();
+          navigation.navigate("Login");
+        }}
+      />
     </SafeAreaView>
   );
 };

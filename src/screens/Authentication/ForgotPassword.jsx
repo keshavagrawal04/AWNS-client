@@ -1,8 +1,10 @@
 import {Text, View, TouchableOpacity, Image} from "react-native";
-import images from "../../assets/images";
 import {SafeAreaView} from "react-native-safe-area-context";
 import React from "react";
-import {CustomButton, CustomTextInput} from "../../components";
+import {
+  CustomButton,
+  FloatingLabelTextInput,
+} from "../../components";
 import {useFormik} from "formik";
 import {useNavigation} from "@react-navigation/native";
 import {forgotPasswordSchema} from "../../schema/Authentication";
@@ -41,9 +43,9 @@ const ForgotPassword = () => {
       </View>
       <View className="mt-16 px-4">
         <View>
-          <CustomTextInput
+          <FloatingLabelTextInput
             inputStyles={"py-4"}
-            placeholder={"Email Address"}
+            label={"Email Address"}
             id="email"
             formik={formik}
           />

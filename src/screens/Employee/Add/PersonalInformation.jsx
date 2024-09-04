@@ -1,5 +1,9 @@
 import {Text, View, TouchableOpacity, Image} from "react-native";
-import {CustomTextInput, CustomDatePicker} from "../../../components";
+import {
+  FloatingLabelTextInput,
+  CustomDatePicker,
+  FloatingLabelDateInput,
+} from "../../../components";
 import {useFormik} from "formik";
 import images from "../../../assets/images";
 import {employeePersonalInfoSchema} from "../../../schema/Employee";
@@ -28,7 +32,6 @@ const PersonalInformation = ({handleNextTab, handlePrevTab}) => {
     onSubmit: async values => {
       try {
         const hasChanged = !isEqual(values, userData?.user);
-        console.log(hasChanged);
         if (!hasChanged) {
           handleNextTab();
           return;
@@ -72,48 +75,47 @@ const PersonalInformation = ({handleNextTab, handlePrevTab}) => {
         Personal Information
       </Text>
       <View className="py-5 px-2">
-        <CustomTextInput
+        <FloatingLabelTextInput
           label={"Name"}
           required
-          placeholder={"Name"}
           formik={formik}
           id="name"
+          inputStyles={"py-4"}
         />
-        <CustomTextInput
+        <FloatingLabelTextInput
+          inputStyles={"py-4"}
           label={"Email Address"}
           required
-          placeholder={"Email Address"}
           formik={formik}
           id="email"
         />
-        <CustomTextInput
+        <FloatingLabelTextInput
+          inputStyles={"py-4"}
           label={"Mobile Number"}
           required
-          placeholder={"Mobile Number"}
           formik={formik}
           id="mobileNumber"
           type="numeric"
         />
-        <CustomTextInput
+        <FloatingLabelTextInput
           label={"Alternate Mobile Number"}
+          inputStyles={"py-4"}
           required
-          placeholder={"Alternate Mobile Number"}
           formik={formik}
           id="alternateMobileNumber"
           type="numeric"
         />
-        <CustomDatePicker
+        <FloatingLabelDateInput
           id="dateOfBirth"
           label="Date of Birth"
-          placeholder="Select your date of birth"
           formik={formik}
-          datePickerMode="date"
+          inputStyles={"py-4"}
           required
         />
-        <CustomTextInput
+        <FloatingLabelTextInput
+          inputStyles={"py-4"}
           label={"Address"}
           required
-          placeholder={"Address"}
           formik={formik}
           id="address"
         />

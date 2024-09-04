@@ -7,8 +7,8 @@ import {useFormik} from "formik";
 import {leaveSchema} from "../../../schema/Employee";
 import {
   CustomButton,
-  CustomDatePicker,
-  CustomTextInput,
+  FloatingLabelDateInput,
+  FloatingLabelTextInput,
 } from "../../../components";
 
 const ApplyLeaves = () => {
@@ -38,26 +38,24 @@ const ApplyLeaves = () => {
       </TouchableOpacity>
       <ScrollView className="px-6 mt-4">
         <View className="mb-2">
-          <CustomTextInput
-            id={"title"}
-            placeholder={"Enter title"}
+          <FloatingLabelTextInput
+            id={"TITLE"}
+            label={"Enter Title"}
             formik={formik}
-            label={"TITLE"}
-            required
-            inputStyles={"py-3"}
+            inputStyles={"py-4"}
           />
         </View>
         <View className="mb-2">
-          <CustomDatePicker
+          <FloatingLabelDateInput
+            inputStyles={"py-4"}
             id={"date"}
-            placeholder={"Select date"}
+            label={"Select date"}
             formik={formik}
-            label={"DATE"}
             required
           />
         </View>
         <View className="mb-2">
-          <CustomTextInput
+          <FloatingLabelTextInput
             id={"reason"}
             placeholder={"Reason"}
             formik={formik}

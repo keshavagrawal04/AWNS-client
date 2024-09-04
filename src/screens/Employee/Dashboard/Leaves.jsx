@@ -52,7 +52,7 @@ const Leaves = () => {
         </View>
         <View className="mt-5">
           {leaves.map(leave => (
-            <View className="mb-4">
+            <View key={leave.id} className="mb-4">
               <LeaveCard
                 title={leave.title}
                 date={leave.date}
