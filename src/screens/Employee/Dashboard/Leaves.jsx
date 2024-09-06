@@ -3,13 +3,15 @@ import React, {useState} from "react";
 import {SafeAreaView} from "react-native-safe-area-context";
 import icons from "../../../assets/icons";
 import {useNavigation} from "@react-navigation/native";
-import {LeaveCard, Loader} from "../../../components";
+import {Filter, LeaveCard, Loader} from "../../../components";
 import {useGetLeavesQuery} from "../../../services/api/leave";
+import images from "../../../assets/images";
 
 const Leaves = () => {
   const navigation = useNavigation();
   const {data: leavesData, isLoading} = useGetLeavesQuery();
   const [activeTab, setActiveTab] = useState("Leaves");
+  const [isFilter, setIsFilter] = useState(false);
 
   if (isLoading) return <Loader />;
 
@@ -78,13 +80,28 @@ const Leaves = () => {
           <Text className="text-black font-poppins-bold text-2xl">
             {activeTab}
           </Text>
-          <TouchableOpacity className="border border-primary rounded-md px-4 py-1">
+          <TouchableOpacity
+            onPress={() => {
+              setIsFilter(true);
+            }}
+            className="border border-primary rounded-md px-4 py-1 flex flex-row justify-between items-center">
+            <Image className="h-[15px] w-[15px]" source={icons.filter} />
             <Text className="text-primary font-poppins-medium text-xl">
+              {" "}
               Filter
             </Text>
           </TouchableOpacity>
         </View>
         <View className="mt-5">
+          {leavesData?.data?.length <= 0 && (
+            <View className="flex items-center mt-10">
+              <Image
+                source={images.noDataFound}
+                className="w-[280px] h-[280px]"
+                resizeMethod="contain"
+              />
+            </View>
+          )}
           {leavesData?.data?.map(leave => (
             <View key={leave._id} className="mb-4">
               <LeaveCard
@@ -97,6 +114,12 @@ const Leaves = () => {
           ))}
         </View>
       </ScrollView>
+      <Filter
+        visible={isFilter}
+        handleClose={() => {
+          setIsFilter(false);
+        }}
+      />
     </SafeAreaView>
   );
 };

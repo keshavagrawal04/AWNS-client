@@ -22,6 +22,7 @@ import prevArrow from "./prevArrow.png";
 import nextArrow from "./nextArrow.png";
 import pendingApproval from "./pendingApproval.png";
 import nextArrowPrimary from "./nextArrowPrimary.png";
+import noDataFound from "./noDataFound.png";
 
 const images = {
   eye,
@@ -48,6 +49,7 @@ const images = {
   prevArrow,
   nextArrow,
   nextArrowPrimary,
+  noDataFound,
 };
 
 export default images;

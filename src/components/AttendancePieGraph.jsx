@@ -7,7 +7,7 @@ const AttendancePieGraph = ({
   percentage = 90,
   title = "Attendance",
   containerStyles = "py-5",
-  pieStyles = "my-16",
+  pieStyles = "my-8",
   children,
 }) => {
   const center = size / 2;
@@ -16,9 +16,9 @@ const AttendancePieGraph = ({
   const strokeDashoffset = circumference - (circumference * percentage) / 100;
 
   return (
-    <View className={`my-4 px-4 rounded-xl bg-white ${containerStyles}`}>
+    <View className={`my-2 px-2 rounded-xl bg-white ${containerStyles}`}>
       <Text className="text-black font-poppins-medium text-lg">{title}</Text>
-      <View className="relative">
+      <View className="relative mt-10">
         <Svg width={size} height={size} className={`mx-auto ${pieStyles}`}>
           <Circle
             cx={center}

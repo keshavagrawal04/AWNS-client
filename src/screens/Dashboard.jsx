@@ -1,38 +1,53 @@
-import {View, Text, ScrollView, Image} from "react-native";
+import {View, Text, ScrollView, Image, TouchableOpacity} from "react-native";
 import {SafeAreaView} from "react-native-safe-area-context";
-import React from "react";
+import React, {useState} from "react";
 import images from "../assets/images";
-import {AnalyticsCard, AttendancePieGraph} from "../components";
+import {AnalyticsCard, AttendancePieGraph, LogoutModal} from "../components";
 import {useGetUserInfoQuery} from "../services/api/user";
+import icons from "../assets/icons";
+import {useAuth} from "../hooks";
+import {useNavigation} from "@react-navigation/native";
 
 const Dashboard = () => {
+  const [isLogoutModalVisible, setIsLogoutModalVisible] = useState(false);
   const {data: userData} = useGetUserInfoQuery();
+  const navigation = useNavigation();
+  const {logout} = useAuth();
 
   return (
     <SafeAreaView>
       <View className="flex align-middle content-center flex-row py-4 justify-between px-4">
         <Text className="font-ubuntu-bold text-3xl text-black">Dashboard</Text>
         <View className="flex gap-3 justify-center align-middle content-center flex-row">
-          <View className="flex align-middle content-center justify-center">
+          <View className="flex align-middle items-center justify-center">
             <Image
               source={images.notification}
               className="w-[26px] h-[26px]"
               resizeMethod="contain"
             />
           </View>
-          {userData?.user?.profileImage ? (
-            <Image
-              source={{uri: userData?.user?.profileImage}}
-              className="w-[42px] h-[42px] rounded-full"
-              resizeMethod="contain"
-            />
-          ) : (
-            <Image
-              source={images.profile}
-              className="w-[42px] h-[42px]"
-              resizeMethod="contain"
-            />
-          )}
+          <TouchableOpacity
+            onPress={() => {
+              setIsLogoutModalVisible(true);
+            }}
+            className="flex items-center justify-center">
+            <Image source={icons.logout} className="w-[26px] h-[26px]" />
+          </TouchableOpacity>
+          <TouchableOpacity>
+            {userData?.user?.profileImage ? (
+              <Image
+                source={{uri: userData?.user?.profileImage}}
+                className="w-[42px] h-[42px] rounded-full"
+                resizeMethod="contain"
+              />
+            ) : (
+              <Image
+                source={images.profile}
+                className="w-[42px] h-[42px]"
+                resizeMethod="contain"
+              />
+            )}
+          </TouchableOpacity>
         </View>
       </View>
       <ScrollView className="px-4">
@@ -61,7 +76,6 @@ const Dashboard = () => {
 
         <View className="bg-white rounded-xl p-5 mb-28">
           <AttendancePieGraph
-            containerStyles={""}
             title={"Attendance Today"}
             pieStyles={"my-4"}>
             <View className="mt-4">
@@ -84,7 +98,19 @@ const Dashboard = () => {
             </View>
           </AttendancePieGraph>
         </View>
+        <View className="mb-36" />
       </ScrollView>
+      <LogoutModal
+        visible={isLogoutModalVisible}
+        handleClose={() => {
+          setIsLogoutModalVisible(prev => !prev);
+        }}
+        handleYes={() => {
+          setIsLogoutModalVisible(prev => !prev);
+          logout();
+          navigation.navigate("Login");
+        }}
+      />
     </SafeAreaView>
   );
 };

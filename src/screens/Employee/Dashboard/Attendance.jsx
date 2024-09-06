@@ -9,33 +9,33 @@ const Attendance = () => {
 
   return (
     <ScrollView className="px-4">
-      <AttendancePieGraph />
+      <AttendancePieGraph containerStyles="" />
       <Text className="text-black font-poppins-medium text-xl mb-3">
         This Month
       </Text>
       <View className="rounded-xl bg-white p-4">
-        <View className="flex flex-row justify-between px-8 border-b-2 border-light-gray pb-2">
+        <View className="flex flex-row justify-between px-8 border-b border-light-gray pb-2">
           <Text className="text-light-gray text-md font-poppins-medium">
             Total Working Day
           </Text>
           <Text className="text-primary text-lg font-poppins-medium">28</Text>
         </View>
 
-        <View className="flex flex-row justify-between px-8 border-b-2 border-light-gray pb-2 pt-4">
+        <View className="flex flex-row justify-between px-8 border-b border-light-gray pb-2 pt-4">
           <Text className="text-light-gray text-md font-poppins-medium">
             Present
           </Text>
           <Text className="text-black text-lg font-poppins-medium">24</Text>
         </View>
 
-        <View className="flex flex-row justify-between px-8 border-b-2 border-light-gray pb-2 pt-4">
+        <View className="flex flex-row justify-between px-8 border-b border-light-gray pb-2 pt-4">
           <Text className="text-light-gray text-md font-poppins-medium">
             On Leave
           </Text>
           <Text className="text-black text-lg font-poppins-medium">4</Text>
         </View>
 
-        <View className="flex flex-row justify-between px-8 pb-2 pt-4">
+        <View className="flex flex-row justify-between px-8 pt-4">
           <Text className="text-light-gray text-md font-poppins-medium">
             Absent
           </Text>

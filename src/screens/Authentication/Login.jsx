@@ -13,6 +13,7 @@ import {useNavigation} from "@react-navigation/native";
 import {useLoginMutation} from "../../services/api/authentication";
 import {loginSchema} from "../../schema/Authentication";
 import {useAuth} from "../../hooks";
+import icons from "../../assets/icons";
 
 const Login = () => {
   const navigation = useNavigation();
@@ -38,13 +39,17 @@ const Login = () => {
             message: data?.message,
             handleClose: () => {
               setShowAlert({visible: false});
-              if (user?.role === "admin") {
+              if (data?.data.role === "admin") {
                 navigation.navigate(
-                  user?.profileSetup ? "Dashboard" : "EmployeeAdd",
+                  data?.data.profileSetup ? "Dashboard" : "EmployeeAdd",
                 );
               } else {
                 navigation.navigate(
-                  user?.profileSetup ? "EmployeeDashboard" : "EmployeeAdd",
+                  data?.data.profileSetup
+                    ? data?.data.isVerified
+                      ? "EmployeeDashboard"
+                      : "PendingApproval"
+                    : "EmployeeAdd",
                 );
               }
             },
@@ -76,7 +81,7 @@ const Login = () => {
             navigation.navigate("Welcome");
           }}>
           <Image
-            source={images.rightArrow}
+            source={icons.backArrow}
             className="w-[30px] h-[25px]"
             resizeMethod="contain"
           />

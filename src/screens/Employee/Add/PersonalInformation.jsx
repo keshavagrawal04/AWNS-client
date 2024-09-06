@@ -61,7 +61,7 @@ const PersonalInformation = ({handleNextTab, handlePrevTab}) => {
     if (userData?.user) {
       Object.keys(userData.user).forEach(key => {
         if (key === "dateOfBirth") {
-          formik.setFieldValue(key, userData.user[key].split("T")[0], false);
+          formik.setFieldValue(key, userData.user[key]?.split("T")[0], false);
         } else {
           formik.setFieldValue(key, userData.user[key], false);
         }

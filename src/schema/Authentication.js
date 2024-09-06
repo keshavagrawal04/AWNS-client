@@ -24,10 +24,6 @@ export const signupSchema = Yup.object().shape({
   mobileNumber: Yup.string()
     .required("Phone number is required")
     .matches(/^[0-9]{10}$/, "Phone number must be exactly 10 digits"),
-
-  role: Yup.string()
-    .required("Role is required")
-    .oneOf(["admin", "employee", "guest"], "Invalid role"),
 });
 
 export const loginSchema = Yup.object().shape({

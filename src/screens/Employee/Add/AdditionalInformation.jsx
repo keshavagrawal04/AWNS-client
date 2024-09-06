@@ -72,7 +72,7 @@ const AdditionalInformation = ({handleNextTab, handlePrevTab}) => {
         if (key === "joiningDate") {
           formik.setFieldValue(
             key,
-            userData.user.additionalInformation[key].split("T")[0],
+            userData.user.additionalInformation[key]?.split("T")[0],
             false,
           );
         } else {

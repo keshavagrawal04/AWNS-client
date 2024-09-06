@@ -13,6 +13,9 @@ import info from "./info.png";
 import add from "./add.png";
 import trash from "./trash.png";
 import cancel from "./cancel.png";
+import filter from "./filter.png";
+import callGray from "./callGray.png";
+import emailGray from "./emailGray.png";
 
 const icons = {
   call,
@@ -30,6 +33,9 @@ const icons = {
   info,
   editWhite,
   add,
+  filter,
+  callGray,
+  emailGray,
 };
 
 export default icons;

@@ -48,7 +48,6 @@ const UpdateProfile = () => {
         ifsc: "",
         accountNumber: "",
       },
-      role: "employee",
     },
     validationSchema: profileSchema,
     onSubmit: async values => {

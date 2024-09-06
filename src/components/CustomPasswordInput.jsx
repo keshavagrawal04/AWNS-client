@@ -28,7 +28,7 @@ const CustomPasswordInput = ({placeholder, id, formik}) => {
         )}
       </TouchableOpacity>
       {formik.touched[id] && formik.errors[id] ? (
-        <Text className="h-[22px] text-red-700 text-md font-poppins-medium">
+        <Text className="h-[22px] text-red text-md font-poppins-medium">
           {formik.errors[id]}
         </Text>
       ) : (

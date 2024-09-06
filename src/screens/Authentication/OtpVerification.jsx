@@ -5,6 +5,7 @@ import React from "react";
 import {CustomButton, OtpInput} from "../../components";
 import {useFormik} from "formik";
 import {useNavigation} from "@react-navigation/native";
+import icons from "../../assets/icons";
 
 const OtpVerification = () => {
   const navigation = useNavigation();
@@ -22,7 +23,7 @@ const OtpVerification = () => {
             navigation.navigate("Welcome");
           }}>
           <Image
-            source={images.rightArrow}
+            source={icons.backArrow}
             className="w-[30px] h-[25px]"
             resizeMethod="contain"
           />

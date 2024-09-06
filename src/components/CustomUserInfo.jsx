@@ -37,7 +37,7 @@ const CustomModal = ({visible, handleClose, user}) => {
                 {user?.name}
               </Text>
               <Text className="text-gray text-center text-md font-poppins-medium">
-                {user?.department}
+                {user?.additionalInformation?.department}
               </Text>
             </View>
             <Text className="font-poppins-medium w-100 pt-1 text-center text-black">

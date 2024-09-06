@@ -17,8 +17,13 @@ import LogoutModal from "./LogoutModal";
 import FloatingLabelTextInput from "./FloatingLabelTextInput";
 import FloatingLabelDateInput from "./FloatingLabelDateInput";
 import FloatingLabelTimeInput from "./FloatingLabelTimeInput";
+import EmployeeCard from "./EmployeeCard";
+import Filter from "./Filter";
+import Popup from "./Popup";
+import ProjectCard from "./ProjectCard";
 
 export {
+  EmployeeCard,
   CustomButton,
   CustomSelectField,
   CustomTextInput,
@@ -28,6 +33,7 @@ export {
   Footer,
   Header,
   Loader,
+  Popup,
   CustomUserInfo,
   CustomDatePicker,
   AttendancePieGraph,
@@ -38,4 +44,6 @@ export {
   FloatingLabelTextInput,
   FloatingLabelDateInput,
   FloatingLabelTimeInput,
+  Filter,
+  ProjectCard,
 };

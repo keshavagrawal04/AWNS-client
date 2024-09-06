@@ -1,21 +1,63 @@
+import {useDeleteUserMutation, useGetUserByIdQuery} from "../services/api/user";
 import {Text, TouchableOpacity, Image, ScrollView, View} from "react-native";
+import {useNavigation, useRoute} from "@react-navigation/native";
+import {CustomButton, Loader, ProjectCard} from "../components";
+import {useApproveAnEmployeeQuery} from "../services/api/user";
 import {SafeAreaView} from "react-native-safe-area-context";
-import icons from "../../../assets/icons";
-import {useNavigation} from "@react-navigation/native";
-import {useGetUserInfoQuery} from "../../../services/api/user";
-import {Loader, LogoutModal, ProjectCard} from "../../../components";
-import images from "../../../assets/images";
-import {useAuth} from "../../../hooks";
+import DeleteModal from "../components/DeleteModal";
 import React, {useState} from "react";
+import images from "../assets/images";
+import icons from "../assets/icons";
 
-const Profile = () => {
+const EmployeeView = () => {
   const navigation = useNavigation();
-  const {data: userData, isLoading} = useGetUserInfoQuery();
-  const {logout} = useAuth();
-  const [isLogoutModalVisible, setIsLogoutModalVisible] = useState(false);
-  const {user} = userData;
+  const route = useRoute();
+  const {id} = route.params;
+  const [isApproved, setIsApproved] = useState(false);
+  const {data: userData, isLoading, refetch} = useGetUserByIdQuery(id);
+  const [isDelete, setIsDelete] = useState(false);
+  const [deleteEmployee] = useDeleteUserMutation();
+  const {data, isLoading: isEmployeeApproveLogin} = useApproveAnEmployeeQuery(
+    id,
+    {skip: isApproved},
+  );
 
-  if (isLoading) return <Loader />;
+  const handleDelete = async () => {
+    try {
+      setIsDelete(false);
+      const {data, error} = await deleteEmployee(employee._id);
+      if (data) {
+        console.log(data?.message);
+        setShowAlert({
+          visible: true,
+          type: "success",
+          message: data?.message,
+          handleClose: () => {
+            setShowAlert({visible: false});
+          },
+        });
+      } else {
+        console.log(error.data.message);
+        setShowAlert({
+          visible: true,
+          type: "error",
+          message: error?.data?.message,
+          handleClose: () => {
+            setShowAlert({visible: false});
+          },
+        });
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const handleApprove = () => {
+    setIsApproved(false);
+    refetch();
+  };
+
+  if (isLoading || isEmployeeApproveLogin) return <Loader />;
 
   return (
     <SafeAreaView>
@@ -24,7 +66,7 @@ const Profile = () => {
         <TouchableOpacity
           className="flex flex-row items-center py-5"
           onPress={() => {
-            navigation.navigate("EmployeeDashboard");
+            navigation.navigate("Dashboard");
           }}>
           <Image
             source={icons.backArrow}
@@ -32,42 +74,30 @@ const Profile = () => {
             resizeMethod="contain"
           />
           <Text className="text-black text-3xl font-ubuntu-bold ml-2">
-            Profile
+            Employee View
           </Text>
         </TouchableOpacity>
         <View className="flex flex-row items-center gap-2">
           <TouchableOpacity
-            className="border border-primary rounded-full p-2"
             onPress={() => {
-              navigation.navigate("UpdateProfile");
-            }}>
+              setIsDelete(true);
+            }}
+            className="border border-red rounded-full p-2">
             <Image
-              source={icons.edit}
+              source={icons.trash}
               className="w-[20px] h-[20px]"
               resizeMode="contain"
             />
           </TouchableOpacity>
-          <TouchableOpacity
-            className="rounded-md p-2 flex flex-row bg-[#ed2e2e1a] items-center justify-center"
-            onPress={() => {
-              setIsLogoutModalVisible(true);
-            }}>
-            <Image
-              source={icons.logout}
-              className="w-[20px] h-[20px] my-auto"
-              resizeMode="contain"
-            />
-            <Text className="text-red font-poppins-medium ml-1">Logout</Text>
-          </TouchableOpacity>
         </View>
       </View>
 
-      {/* Profile and Department Section */}
+      {/* EmployeeView and Department Section */}
       <ScrollView className="px-6 pt-6 h-full">
         <View className="flex flex-row gap-3">
-          {user?.profileImage ? (
+          {userData?.user?.profileImage ? (
             <Image
-              source={{uri: user?.profileImage}}
+              source={{uri: userData?.user?.profileImage}}
               className="w-[72px] h-[72px] rounded-full"
               resizeMethod="contain"
             />
@@ -80,12 +110,12 @@ const Profile = () => {
           )}
           <View className="flex justify-center">
             <Text className="text-black font-poppins-medium text-xl pb-2">
-              {user?.name}
+              {userData?.user?.name}
             </Text>
             <View className="flex flex-row gap-2 items-center">
               <Text className="text-black font-poppins-medium">Department</Text>
               <Text className="bg-[#5a2adc33] text-black text-center px-2 py-1 rounded-full font-poppins-medium">
-                {user?.additionalInformation?.department}
+                {userData?.user?.additionalInformation?.department}
               </Text>
             </View>
           </View>
@@ -98,11 +128,11 @@ const Profile = () => {
               Personal Details
             </Text>
             <Text className="font-poppins-medium text-md text-green bg-[#03d15533] px-4 py-1 rounded-full">
-              {user?.additionalInformation?.employementType}
+              {userData?.user?.additionalInformation?.employementType}
             </Text>
           </View>
 
-          {/* Profile Information */}
+          {/* EmployeeView Information */}
           <View className="space-y-4">
             {/* Full name */}
             <View className="flex flex-row border-b border-light-gray pb-3">
@@ -110,7 +140,7 @@ const Profile = () => {
                 FULL NAME
               </Text>
               <Text className="w-2/3 text-black font-poppins-medium">
-                {user?.name}
+                {userData?.user?.name}
               </Text>
             </View>
 
@@ -120,7 +150,7 @@ const Profile = () => {
                 EMAIL
               </Text>
               <Text className="w-2/3 text-black font-poppins-medium">
-                {user?.email}
+                {userData?.user?.email}
               </Text>
             </View>
 
@@ -130,7 +160,7 @@ const Profile = () => {
                 PHONE
               </Text>
               <Text className="w-2/3 text-black font-poppins-medium">
-                {user?.mobileNumber}
+                {userData?.user?.mobileNumber}
               </Text>
             </View>
 
@@ -140,7 +170,7 @@ const Profile = () => {
                 ALTERNATE PHONE
               </Text>
               <Text className="w-2/3 text-black font-poppins-medium">
-                {user?.alternateMobileNumber}
+                {userData?.user?.alternateMobileNumber}
               </Text>
             </View>
 
@@ -150,7 +180,7 @@ const Profile = () => {
                 DATE OF BIRTH
               </Text>
               <Text className="w-2/3 text-black font-poppins-medium">
-                {user?.dateOfBirth?.split("T")[0]}
+                {userData?.user?.dateOfBirth?.split("T")[0]}
               </Text>
             </View>
 
@@ -160,7 +190,7 @@ const Profile = () => {
                 ADDRESS
               </Text>
               <Text className="w-2/3 text-black font-poppins-medium">
-                {user?.address}
+                {userData?.user?.address}
               </Text>
             </View>
           </View>
@@ -174,7 +204,7 @@ const Profile = () => {
             </Text>
           </View>
 
-          {/* Profile Information */}
+          {/* EmployeeView Information */}
           <View className="space-y-4">
             {/* Full name */}
             <View className="flex flex-row border-b border-light-gray pb-3">
@@ -182,7 +212,7 @@ const Profile = () => {
                 LINKEDIN
               </Text>
               <Text className="w-2/3 text-black font-poppins-medium">
-                {user?.additionalInformation?.linkedIn}
+                {userData?.user?.additionalInformation?.linkedIn}
               </Text>
             </View>
 
@@ -192,7 +222,11 @@ const Profile = () => {
                 JOINING DATE
               </Text>
               <Text className="w-2/3 text-black font-poppins-medium">
-                {user?.additionalInformation?.joiningDate?.split("T")[0]}
+                {
+                  userData?.user?.additionalInformation?.joiningDate?.split(
+                    "T",
+                  )[0]
+                }
               </Text>
             </View>
 
@@ -202,7 +236,7 @@ const Profile = () => {
                 EDUCATION
               </Text>
               <Text className="w-2/3 text-black font-poppins-medium">
-                {user?.additionalInformation?.education}
+                {userData?.user?.additionalInformation?.education}
               </Text>
             </View>
 
@@ -212,7 +246,7 @@ const Profile = () => {
                 DEPARTMENT
               </Text>
               <Text className="w-2/3 text-black font-poppins-medium">
-                {user?.additionalInformation?.department}
+                {userData?.user?.additionalInformation?.department}
               </Text>
             </View>
           </View>
@@ -233,7 +267,7 @@ const Profile = () => {
                 BANK NAME
               </Text>
               <Text className="w-2/3 text-black font-poppins-medium">
-                {user?.bankDetails?.bankName}
+                {userData?.user?.bankDetails?.bankName}
               </Text>
             </View>
 
@@ -243,7 +277,7 @@ const Profile = () => {
                 BRANCH NAME
               </Text>
               <Text className="w-2/3 text-black font-poppins-medium">
-                {user?.bankDetails?.branchName}
+                {userData?.user?.bankDetails?.branchName}
               </Text>
             </View>
 
@@ -253,7 +287,7 @@ const Profile = () => {
                 ACCOUNT HOLDER
               </Text>
               <Text className="w-2/3 text-black font-poppins-medium">
-                {user?.bankDetails?.accountHolderName}
+                {userData?.user?.bankDetails?.accountHolderName}
               </Text>
             </View>
 
@@ -263,7 +297,7 @@ const Profile = () => {
                 ACCOUNT NUMBER
               </Text>
               <Text className="w-2/3 text-black font-poppins-medium">
-                {user?.bankDetails?.accountNumber}
+                {userData?.user?.bankDetails?.accountNumber}
               </Text>
             </View>
             {/* IFSC CODE */}
@@ -272,45 +306,68 @@ const Profile = () => {
                 IFSC CODE
               </Text>
               <Text className="w-2/3 text-black font-poppins-medium">
-                {user?.bankDetails?.ifsc}
+                {userData?.user?.bankDetails?.ifsc}
               </Text>
             </View>
           </View>
         </View>
-        <View>
-          <View className="my-5">
-            <Text className="text-black font-poppins-medium text-2xl">
-              Project Details
-            </Text>
-          </View>
+        {userData?.user?.isVerified ? (
           <View>
-            <ProjectCard
-              name={"Marble Galaxy"}
-              date={"Sep,23 2024"}
-              technology={"React JS"}
-            />
-            <ProjectCard
-              name={"Marble Galaxy"}
-              date={"Sep,23 2024"}
-              technology={"React JS"}
-            />
+            <View className="my-5">
+              <Text className="text-black font-poppins-medium text-2xl">
+                Project Details
+              </Text>
+            </View>
+            <View>
+              <ProjectCard
+                name={"Marble Galaxy"}
+                date={"Sep,23 2024"}
+                technology={"React JS"}
+              />
+              <ProjectCard
+                name={"Marble Galaxy"}
+                date={"Sep,23 2024"}
+                technology={"React JS"}
+              />
+            </View>
+            <View className="py-4 mb-4">
+              <CustomButton
+                title={"+ Assign New Project"}
+                containerStyles={"rounded-full py-4"}
+              />
+            </View>
           </View>
-        </View>
-        <View className="mb-28"></View>
+        ) : (
+          <View className="flex flex-row gap-2 justify-evenly py-5">
+            <TouchableOpacity
+              className={`border border-gray w-[45%] bg-[#EBEBEB] rounded-full px-8 py-2`}>
+              <Text
+                className={`text-gray text-center my-auto text-xl font-poppins-medium`}>
+                Cancel
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              className={`bg-primary flex w-[45%] justify-center rounded-full px-8 py-3`}
+              onPress={handleApprove}>
+              <Text
+                className={`text-white text-center my-auto text-xl font-poppins-medium`}>
+                Approve
+              </Text>
+            </TouchableOpacity>
+          </View>
+        )}
+        <View className="mb-24"></View>
       </ScrollView>
-      <LogoutModal
-        visible={isLogoutModalVisible}
+      <DeleteModal
+        visible={isDelete}
+        title={userData?.user?.name}
         handleClose={() => {
-          setIsLogoutModalVisible(prev => !prev);
+          setIsDelete(false);
         }}
-        handleYes={() => {
-          setIsLogoutModalVisible(prev => !prev);
-          logout();
-          navigation.navigate("Login");
-        }}
+        handleYes={handleDelete}
       />
     </SafeAreaView>
   );
 };
 
-export default Profile;
+export default EmployeeView;

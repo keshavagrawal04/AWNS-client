@@ -35,7 +35,7 @@ const Meeting = () => {
             <MeetingCard
               id={meet._id}
               title={meet.title}
-              date={meet.date.split("T")[0]}
+              date={meet.date?.split("T")[0]}
               link={meet.meetingLink}
               purpose={meet.purpose}
               actions

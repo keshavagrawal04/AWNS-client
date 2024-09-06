@@ -6,6 +6,7 @@ import {CustomButton, CustomPasswordInput} from "../../components";
 import {useFormik} from "formik";
 import {useNavigation} from "@react-navigation/native";
 import {createPasswordSchema} from "../../schema/Authentication";
+import icons from "../../assets/icons";
 
 const CreatePassword = () => {
   const navigation = useNavigation();
@@ -24,7 +25,7 @@ const CreatePassword = () => {
             navigation.navigate("Welcome");
           }}>
           <Image
-            source={images.rightArrow}
+            source={icons.backArrow}
             className="w-[30px] h-[25px]"
             resizeMethod="contain"
           />

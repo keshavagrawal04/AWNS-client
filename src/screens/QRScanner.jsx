@@ -72,7 +72,7 @@ const QRScanner = () => {
     try {
       const {data: responseData, error} = await addAttendance({
         user: data,
-        date: currentDate.toISOString().split("T")[0],
+        date: currentDate.toISOString()?.split("T")[0],
         time: currentTime,
       });
 
@@ -128,13 +128,8 @@ const QRScanner = () => {
 
   return (
     <>
-      <SafeAreaView className="flex-1 h-[75vh]">
+      <SafeAreaView className="flex-1">
         <TouchableOpacity className="flex flex-row items-center px-4 py-5">
-          <Image
-            source={icons.backArrow}
-            className="w-7 h-7"
-            resizeMethod="contain"
-          />
           <Text className="text-black text-3xl font-ubuntu-medium ml-2">
             Scan
           </Text>

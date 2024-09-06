@@ -6,6 +6,7 @@ import Meeting from "./Meeting";
 import Employees from "./Employees";
 import AddMeeting from "./AddMeeting";
 import UpdateMeeting from "./UpdateMeeting";
+import EmployeeView from "./EmployeeView";
 
 export {
   Welcome,
@@ -16,4 +17,5 @@ export {
   Meeting,
   AddMeeting,
   UpdateMeeting,
+  EmployeeView,
 };

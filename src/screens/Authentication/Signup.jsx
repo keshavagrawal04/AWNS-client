@@ -12,6 +12,7 @@ import {useFormik} from "formik";
 import {useNavigation} from "@react-navigation/native";
 import {useSignupMutation} from "../../services/api/authentication";
 import {signupSchema} from "../../schema/Authentication";
+import icons from "../../assets/icons";
 
 const Signup = () => {
   const navigation = useNavigation();
@@ -26,7 +27,6 @@ const Signup = () => {
       password: "",
       name: "",
       mobileNumber: "",
-      role: "",
     },
     validationSchema: signupSchema,
     onSubmit: async values => {
@@ -70,7 +70,7 @@ const Signup = () => {
             navigation.navigate("Welcome");
           }}>
           <Image
-            source={images.rightArrow}
+            source={icons.backArrow}
             className="w-[30px] h-[25px]"
             resizeMethod="contain"
           />
@@ -118,14 +118,6 @@ const Signup = () => {
               id="password"
               formik={formik}
               isPassword
-            />
-          </View>
-          <View>
-            <FloatingLabelTextInput
-              inputStyles={"py-4"}
-              label={"Select Your Role"}
-              id="role"
-              formik={formik}
             />
           </View>
           <CustomButton

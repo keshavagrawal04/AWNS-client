@@ -1,7 +1,7 @@
 import * as React from "react";
 import {NavigationContainer} from "@react-navigation/native";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
-import {Welcome, AddMeeting, UpdateMeeting} from "../screens";
+import {Welcome, AddMeeting, UpdateMeeting, EmployeeView} from "../screens";
 import {
   CreatePassword,
   ForgotPassword,
@@ -33,6 +33,7 @@ function AppNavigation() {
         <Stack.Screen name="Dashboard" component={MainLayout} />
         <Stack.Screen name="AddMeeting" component={AddMeeting} />
         <Stack.Screen name="UpdateMeeting" component={UpdateMeeting} />
+        <Stack.Screen name="EmployeeView" component={EmployeeView} />
         {/* Authentication Routes */}
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Signup" component={Signup} />

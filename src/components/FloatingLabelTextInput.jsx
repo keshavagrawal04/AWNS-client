@@ -140,7 +140,7 @@ const FloatingLabelTextInput = ({
         )}
       </Animated.View>
       {getIn(formik.touched, id) && getIn(formik.errors, id) ? (
-        <Text className="h-[22px] text-red-700 text-md font-poppins-medium">
+        <Text className="h-[22px] text-red text-md font-poppins-medium">
           {getIn(formik.errors, id)}
         </Text>
       ) : (
