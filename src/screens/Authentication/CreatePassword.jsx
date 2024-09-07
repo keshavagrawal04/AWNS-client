@@ -1,12 +1,11 @@
 import {Text, View, TouchableOpacity, Image} from "react-native";
-import images from "../../assets/images";
 import {SafeAreaView} from "react-native-safe-area-context";
-import React from "react";
 import {CustomButton, CustomPasswordInput} from "../../components";
 import {useFormik} from "formik";
 import {useNavigation} from "@react-navigation/native";
 import {createPasswordSchema} from "../../schema/Authentication";
 import icons from "../../assets/icons";
+import React, {useState} from "react";
 
 const CreatePassword = () => {
   const navigation = useNavigation();

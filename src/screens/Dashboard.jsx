@@ -75,9 +75,7 @@ const Dashboard = () => {
         </View>
 
         <View className="bg-white rounded-xl p-5 mb-28">
-          <AttendancePieGraph
-            title={"Attendance Today"}
-            pieStyles={"my-4"}>
+          <AttendancePieGraph title={"Attendance Today"} pieStyles={"my-4"}>
             <View className="mt-4">
               <View className="flex flex-row justify-between">
                 <Text className="text-light-gray text- font-poppins-medium">

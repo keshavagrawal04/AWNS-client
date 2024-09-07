@@ -9,7 +9,6 @@ import {
   useUpdateProfileImageMutation,
   useGetUserInfoQuery,
 } from "../../../services/api/user";
-import * as Burnt from "burnt";
 
 const ProfileImage = ({handleNextTab}) => {
   const [selectedImage, setSelectedImage] = useState(null);

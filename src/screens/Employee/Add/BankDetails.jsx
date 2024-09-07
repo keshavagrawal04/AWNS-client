@@ -4,7 +4,6 @@ import {
   useGetUserInfoQuery,
 } from "../../../services/api/user";
 import React, {useEffect} from "react";
-import * as Burnt from "burnt";
 import {FloatingLabelTextInput} from "../../../components";
 import {useFormik} from "formik";
 import images from "../../../assets/images";

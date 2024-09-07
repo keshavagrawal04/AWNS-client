@@ -1,10 +1,7 @@
 import {Text, View, TouchableOpacity, Image} from "react-native";
 import {SafeAreaView} from "react-native-safe-area-context";
 import React from "react";
-import {
-  CustomButton,
-  FloatingLabelTextInput,
-} from "../../components";
+import {CustomButton, FloatingLabelTextInput} from "../../components";
 import {useFormik} from "formik";
 import {useNavigation} from "@react-navigation/native";
 import {forgotPasswordSchema} from "../../schema/Authentication";
