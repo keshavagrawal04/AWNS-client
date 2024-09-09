@@ -13,9 +13,10 @@ import {
 } from "../../../services/api/user";
 import React, {useEffect} from "react";
 import {isEqual} from "lodash";
+import * as Burnt from "burnt";
 
 const AdditionalInformation = ({handleNextTab, handlePrevTab}) => {
-  const [updateUser] = useUpdateUserMutation();
+  const [updateUser, {isLoading}] = useUpdateUserMutation();
   const {data: userData} = useGetUserInfoQuery();
 
   const employementTypes = [
@@ -131,7 +132,8 @@ const AdditionalInformation = ({handleNextTab, handlePrevTab}) => {
       <View className="absolute bottom-0 w-full flex-row justify-evenly px-4">
         <TouchableOpacity
           className={`border border-gray bg-[#EBEBEB] rounded-full px-8 py-2`}
-          onPress={handlePrevTab}>
+          onPress={handlePrevTab}
+          disabled={isLoading}>
           <Text
             className={`text-gray text-center my-auto text-xl font-poppins-medium`}>
             <Image
@@ -144,7 +146,8 @@ const AdditionalInformation = ({handleNextTab, handlePrevTab}) => {
         </TouchableOpacity>
         <TouchableOpacity
           className={`bg-primary flex justify-center rounded-full px-8 py-3`}
-          onPress={formik.handleSubmit}>
+          onPress={formik.handleSubmit}
+          disabled={isLoading}>
           <Text
             className={`text-white text-center my-auto text-xl font-poppins-medium`}>
             Next{" "}

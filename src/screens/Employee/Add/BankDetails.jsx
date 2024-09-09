@@ -10,9 +10,10 @@ import images from "../../../assets/images";
 import {bankDetailsSchema} from "../../../schema/Employee";
 import {isEqual} from "lodash";
 import {useNavigation} from "@react-navigation/native";
+import * as Burnt from "burnt";
 
 const BankDetails = ({handlePrevTab}) => {
-  const [updateUser] = useUpdateUserMutation();
+  const [updateUser, {isLoading}] = useUpdateUserMutation();
   const {data: userData} = useGetUserInfoQuery();
   const navigation = useNavigation();
 
@@ -29,6 +30,10 @@ const BankDetails = ({handlePrevTab}) => {
       try {
         const hasChanged = !isEqual(values, userData?.user?.bankDetails);
         if (!hasChanged) {
+          if (userData?.user?.role === "admin") {
+            navigation.navigate("Dashboard");
+            return;
+          }
           if (!userData?.user?.isVerified) {
             navigation.navigate("PendingApproval");
           } else {
@@ -36,10 +41,11 @@ const BankDetails = ({handlePrevTab}) => {
           }
           return;
         }
-
+        const userRole = userData?.user?.role;
         const {data, error} = await updateUser({
           bankDetails: {...values},
           profileSetup: true,
+          isVerified: userRole === "admin" ? true : false,
         });
 
         if (error) {
@@ -49,11 +55,15 @@ const BankDetails = ({handlePrevTab}) => {
           });
           console.log(error.data.message);
         } else if (data) {
-          Burnt.alert({
+          Burnt.alert({ 
             title: data.message,
             preset: "done",
           });
           console.log(data?.message);
+          if (userData?.user?.role === "admin") {
+            navigation.navigate("Dashboard");
+            return;
+          }
           if (!userData?.user?.isVerified) {
             navigation.navigate("PendingApproval");
           } else {
@@ -118,7 +128,8 @@ const BankDetails = ({handlePrevTab}) => {
       <View className="absolute bottom-0 w-full flex-row justify-evenly px-4">
         <TouchableOpacity
           className={`border border-gray bg-[#EBEBEB] rounded-full px-8 py-2`}
-          onPress={handlePrevTab}>
+          onPress={handlePrevTab}
+          disabled={isLoading}>
           <Text
             className={`text-gray text-center my-auto text-xl font-poppins-medium`}>
             <Image
@@ -131,7 +142,8 @@ const BankDetails = ({handlePrevTab}) => {
         </TouchableOpacity>
         <TouchableOpacity
           className={`bg-primary flex justify-center rounded-full px-8 py-3`}
-          onPress={formik.handleSubmit}>
+          onPress={formik.handleSubmit}
+          disabled={isLoading}>
           <Text
             className={`text-white text-center my-auto text-xl font-poppins-medium`}>
             Next{" "}

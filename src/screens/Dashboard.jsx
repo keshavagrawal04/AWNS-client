@@ -3,7 +3,10 @@ import {SafeAreaView} from "react-native-safe-area-context";
 import React, {useState} from "react";
 import images from "../assets/images";
 import {AnalyticsCard, AttendancePieGraph, LogoutModal} from "../components";
-import {useGetUserInfoQuery} from "../services/api/user";
+import {
+  useGetUserInfoQuery,
+  useGetEmployeesCountsQuery,
+} from "../services/api/user";
 import icons from "../assets/icons";
 import {useAuth} from "../hooks";
 import {useNavigation} from "@react-navigation/native";
@@ -11,6 +14,7 @@ import {useNavigation} from "@react-navigation/native";
 const Dashboard = () => {
   const [isLogoutModalVisible, setIsLogoutModalVisible] = useState(false);
   const {data: userData} = useGetUserInfoQuery();
+  const {data: countsData} = useGetEmployeesCountsQuery();
   const navigation = useNavigation();
   const {logout} = useAuth();
 
@@ -56,13 +60,15 @@ const Dashboard = () => {
             <Text className="text-white font-poppins-bold text-xl">
               Total Employees
             </Text>
-            <Text className="text-white font-poppins-bold text-xl">150</Text>
+            <Text className="text-white font-poppins-bold text-xl">
+              {countsData?.data?.totalEmployees}
+            </Text>
           </View>
         </View>
 
         <View className="py-5">
           <Text className="text-black font-poppins-medium text-xl">
-            Today Analystics
+            Today Analytics
           </Text>
           <View className="flex flex-row justify-between mt-5">
             <AnalyticsCard title={"Reported Employees"} count={140} />

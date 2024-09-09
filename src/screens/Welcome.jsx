@@ -41,7 +41,9 @@ const Welcome = () => {
                 : userData?.user?.role === "admin"
                 ? "Dashboard"
                 : userData?.user?.profileSetup
-                ? "EmployeeDashboard"
+                ? userData?.user?.isVerified
+                  ? "EmployeeDashboard"
+                  : "PendingApproval"
                 : "EmployeeAdd",
             );
           }}

@@ -60,13 +60,19 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
+        release {
+            storeFile file('awns_ems.keystore')
+            storePassword 'Awns@123'
+            keyAlias 'awns_ems'
+            keyPassword 'Awns@123'
+        }
     }
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
         }
         release {
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
@@ -79,7 +85,6 @@ dependencies {
 
     // React Native Screens and Linear Gradient libraries
     implementation project(':react-native-screens')
-    implementation project(':react-native-linear-gradient')
 
     // Other necessary libraries or modules
     // implementation project(':your-other-library') // Uncomment or add more dependencies as needed

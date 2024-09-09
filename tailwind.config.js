@@ -18,7 +18,9 @@ module.exports = {
         "chart-gray": "#E9EDF0",
         red: "#ED2E2E",
         green: "#03D155",
+        "green-light": "#03d15533",
         info: "#FFB573",
+        "info-light": "rgba(255, 181, 115, 0.2)",
       },
       fontFamily: {
         "ubuntu-regular": ["Ubuntu-Regular"],

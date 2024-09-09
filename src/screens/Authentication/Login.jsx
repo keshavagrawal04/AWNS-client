@@ -40,9 +40,7 @@ const Login = () => {
             handleClose: () => {
               setShowAlert({visible: false});
               if (data?.data.role === "admin") {
-                navigation.navigate(
-                  data?.data.profileSetup ? "Dashboard" : "EmployeeAdd",
-                );
+                navigation.navigate("Dashboard");
               } else {
                 navigation.navigate(
                   data?.data.profileSetup

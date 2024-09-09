@@ -16,6 +16,7 @@ import cancel from "./cancel.png";
 import filter from "./filter.png";
 import callGray from "./callGray.png";
 import emailGray from "./emailGray.png";
+import arrowRight from "./arrowRight.png";
 
 const icons = {
   call,
@@ -36,6 +37,7 @@ const icons = {
   filter,
   callGray,
   emailGray,
+  arrowRight,
 };
 
 export default icons;

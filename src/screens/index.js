@@ -7,6 +7,10 @@ import Employees from "./Employees";
 import AddMeeting from "./AddMeeting";
 import UpdateMeeting from "./UpdateMeeting";
 import EmployeeView from "./EmployeeView";
+import Projects from "./Projects";
+import AddProject from "./AddProject";
+import UpdateProject from "./UpdateProject";
+import ProductView from "./ProjectView";
 
 export {
   Welcome,
@@ -18,4 +22,8 @@ export {
   AddMeeting,
   UpdateMeeting,
   EmployeeView,
+  Projects,
+  AddProject,
+  UpdateProject,
+  ProductView,
 };

@@ -41,6 +41,10 @@ const userApi = service.injectEndpoints({
       query: id => `user/employee/approve/${id}`,
       providesTags: [`User`],
     }),
+    getEmployeesCounts: builder.query({
+      query: () => `user/employee/counts`,
+      providesTags: [`User`],
+    }),
   }),
 });
 
@@ -52,4 +56,5 @@ export const {
   useGetUserByIdQuery,
   useDeleteUserMutation,
   useApproveAnEmployeeQuery,
+  useGetEmployeesCountsQuery,
 } = userApi;

@@ -17,10 +17,13 @@ import LogoutModal from "./LogoutModal";
 import FloatingLabelTextInput from "./FloatingLabelTextInput";
 import FloatingLabelDateInput from "./FloatingLabelDateInput";
 import FloatingLabelTimeInput from "./FloatingLabelTimeInput";
+import FloatingLabelSelectInput from "./FloatingLabelSelectInput";
+import FloatingLabelMultipleSelectInput from "./FloatingLabelMultipleSelectInput";
 import EmployeeCard from "./EmployeeCard";
 import Filter from "./Filter";
 import Popup from "./Popup";
 import ProjectCard from "./ProjectCard";
+import EmployeeAssignModal from "./EmployeeAssignModal";
 
 export {
   EmployeeCard,
@@ -44,6 +47,9 @@ export {
   FloatingLabelTextInput,
   FloatingLabelDateInput,
   FloatingLabelTimeInput,
+  FloatingLabelSelectInput,
+  FloatingLabelMultipleSelectInput,
   Filter,
   ProjectCard,
+  EmployeeAssignModal,
 };

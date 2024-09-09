@@ -9,11 +9,12 @@ import {
   useUpdateProfileImageMutation,
   useGetUserInfoQuery,
 } from "../../../services/api/user";
+import * as Burnt from "burnt";
 
 const ProfileImage = ({handleNextTab}) => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [isImageSelected, setIsImageSelected] = useState(false);
-  const [updateProfileImage] = useUpdateProfileImageMutation();
+  const [updateProfileImage, {isLoading}] = useUpdateProfileImageMutation();
   const {data: userData} = useGetUserInfoQuery();
   const navigation = useNavigation();
 
@@ -106,7 +107,7 @@ const ProfileImage = ({handleNextTab}) => {
           )}
         </View>
         {!isImageSelected ? (
-          <Text className="text-red-600 text-center font-poppins-medium mt-1 text-md">
+          <Text className="text-red text-center font-poppins-medium mt-1 text-md">
             Profile image is required
           </Text>
         ) : (
@@ -128,7 +129,8 @@ const ProfileImage = ({handleNextTab}) => {
           className={`border border-gray bg-[#EBEBEB] rounded-full px-8 py-2`}
           onPress={() => {
             navigation.navigate("EmployeeAdd");
-          }}>
+          }}
+          disabled={isLoading}>
           <Text
             className={`text-gray text-center my-auto text-xl font-poppins-medium`}>
             <Image
@@ -141,7 +143,8 @@ const ProfileImage = ({handleNextTab}) => {
         </TouchableOpacity>
         <TouchableOpacity
           className={`bg-primary flex justify-center rounded-full px-8 py-3`}
-          onPress={handleImageUpload}>
+          onPress={handleImageUpload}
+          disabled={isLoading}>
           <Text
             className={`text-white text-center my-auto text-xl font-poppins-medium`}>
             Next{" "}
