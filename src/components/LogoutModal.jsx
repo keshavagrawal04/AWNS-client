@@ -17,7 +17,7 @@ const LogoutModal = ({visible, handleClose, handleYes}) => {
               className="w-[80px] h-[80px] mx-auto rounded-full"
             />
           </View>
-          <Text className="text-center text-black text-lg font-poppins-medium">
+          <Text className="text-center text-black text-lg font-poppins-bold">
             Are you leaving?
           </Text>
           <Text

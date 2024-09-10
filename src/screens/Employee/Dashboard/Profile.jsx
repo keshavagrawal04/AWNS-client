@@ -1,4 +1,11 @@
-import {Text, TouchableOpacity, Image, ScrollView, View} from "react-native";
+import {
+  Text,
+  TouchableOpacity,
+  Image,
+  ScrollView,
+  View,
+  Linking,
+} from "react-native";
 import {SafeAreaView} from "react-native-safe-area-context";
 import icons from "../../../assets/icons";
 import {useNavigation} from "@react-navigation/native";
@@ -64,7 +71,7 @@ const Profile = () => {
 
       {/* Profile and Department Section */}
       <ScrollView className="px-6 pt-6 h-full">
-        <View className="flex flex-row gap-3">
+        <View className="flex flex-row gap-3 mb-4">
           {user?.profileImage ? (
             <Image
               source={{uri: user?.profileImage}}
@@ -79,12 +86,12 @@ const Profile = () => {
             />
           )}
           <View className="flex justify-center">
-            <Text className="text-black font-poppins-medium text-xl pb-2">
+            <Text className="text-black font-poppins-bold text-xl pb-2">
               {user?.name}
             </Text>
             <View className="flex flex-row gap-2 items-center">
               <Text className="text-black font-poppins-medium">Department</Text>
-              <Text className="bg-[#5a2adc33] text-black text-center px-2 py-1 rounded-full font-poppins-medium">
+              <Text className="bg-[#5a2adc33] text-black text-center px-3 rounded-full font-poppins-medium">
                 {user?.additionalInformation?.department}
               </Text>
             </View>
@@ -94,7 +101,7 @@ const Profile = () => {
         {/* Personal Details Section */}
         <View className="mt-8 rounded-lg bg-white px-4 py-5 shadow-sm">
           <View className="flex flex-row justify-between items-center mb-4">
-            <Text className="text-black font-poppins-medium text-lg">
+            <Text className="text-black font-poppins-bold text-lg">
               Personal Details
             </Text>
             <Text className="font-poppins-medium text-md text-green bg-[#03d15533] px-4 py-1 rounded-full">
@@ -169,7 +176,7 @@ const Profile = () => {
         {/* Additional Details Section */}
         <View className="mt-4 rounded-lg bg-white px-4 py-5 shadow-sm">
           <View className="mb-4">
-            <Text className="text-black font-poppins-medium text-lg">
+            <Text className="text-black font-poppins-bold text-lg">
               Additional Details
             </Text>
           </View>
@@ -181,7 +188,11 @@ const Profile = () => {
               <Text className="w-[140px] text-gray font-poppins-medium">
                 LINKEDIN
               </Text>
-              <Text className="w-2/3 text-black font-poppins-medium">
+              <Text
+                className="w-2/3 font-poppins-medium underline text-primary"
+                onPress={() => {
+                  Linking.openURL(user?.additionalInformation?.linkedIn);
+                }}>
                 {user?.additionalInformation?.linkedIn}
               </Text>
             </View>
@@ -221,7 +232,7 @@ const Profile = () => {
         {/* Bank Details Section */}
         <View className="mt-4 rounded-lg bg-white px-4 py-5 shadow-sm">
           <View className="mb-4">
-            <Text className="text-black font-poppins-medium text-lg">
+            <Text className="text-black font-poppins-bold text-lg">
               Bank Details
             </Text>
           </View>
@@ -279,7 +290,7 @@ const Profile = () => {
         </View>
         <View>
           <View className="my-5">
-            <Text className="text-black font-poppins-medium text-2xl">
+            <Text className="text-black font-poppins-bold text-2xl">
               Project Details
             </Text>
           </View>

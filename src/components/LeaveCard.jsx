@@ -1,7 +1,7 @@
 import {Text, TouchableOpacity, View} from "react-native";
 import React, {useState} from "react";
 
-const LeaveCard = ({title, date, reason}) => {
+const LeaveCard = ({title, date, reason, status}) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
@@ -14,7 +14,21 @@ const LeaveCard = ({title, date, reason}) => {
         </Text>
         <Text className="w-2/3 text-black font-poppins-medium">{date}</Text>
       </View>
-
+      <View className="flex flex-row border-b border-light-gray pb-2 pt-4">
+        <Text className="w-1/2 text-light-gray text-md font-poppins-medium">
+          STATUS
+        </Text>
+        <Text
+          className={`w-2/3 font-poppins-medium ${
+            status === "Approved"
+              ? "text-green"
+              : status === "Pending"
+              ? "text-info"
+              : "text-red"
+          }`}>
+          {status}
+        </Text>
+      </View>
       <View className="flex flex-row pt-4">
         <Text className="w-1/2 text-light-gray text-md font-poppins-medium">
           Reason

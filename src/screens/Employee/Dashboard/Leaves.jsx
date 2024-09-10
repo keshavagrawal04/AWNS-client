@@ -18,7 +18,7 @@ const Leaves = () => {
   return (
     <SafeAreaView>
       <ScrollView className="px-5">
-        <View className="flex flex-row justify-between">
+        <View className="flex flex-row justify-between mb-4">
           <TouchableOpacity
             className="flex flex-row items-center py-5"
             onPress={() => {
@@ -45,7 +45,7 @@ const Leaves = () => {
             </TouchableOpacity>
           </View>
         </View>
-        <View className="w-[100%] rounded-full flex flex-row bg-[#3470ed1a] p-1">
+        <View className="w-[100%] rounded-full flex mb-5 flex-row bg-[#3470ed1a] p-1">
           <TouchableOpacity
             className={`w-[50%] ${
               activeTab === "Leaves" && "bg-primary"
@@ -54,7 +54,7 @@ const Leaves = () => {
               setActiveTab("Leaves");
             }}>
             <Text
-              className={`text-center font-poppins-medium text-lg ${
+              className={`text-center font-poppins-medium text-xl ${
                 activeTab === "Leaves" ? "text-white" : "text-black"
               }`}>
               Leaves
@@ -97,7 +97,7 @@ const Leaves = () => {
             <View className="flex items-center mt-10">
               <Image
                 source={images.noDataFound}
-                className="w-[280px] h-[280px]"
+                className="w-[220px] h-[220px]"
                 resizeMethod="contain"
               />
             </View>
@@ -109,6 +109,7 @@ const Leaves = () => {
                 title={leave.title}
                 date={leave.date?.split("T")[0]}
                 reason={leave.reason}
+                status={leave.status}
               />
             </View>
           ))}

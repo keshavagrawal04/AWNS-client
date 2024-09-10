@@ -1,5 +1,6 @@
 import {Circle, Svg} from "react-native-svg";
-import {View, Text} from "react-native";
+import {View, Text, TouchableOpacity, Image} from "react-native";
+import icons from "../assets/icons";
 import React from "react";
 
 const AttendancePieGraph = ({
@@ -9,6 +10,7 @@ const AttendancePieGraph = ({
   containerStyles = "py-5",
   pieStyles = "my-8",
   children,
+  isFilter = false,
 }) => {
   const center = size / 2;
   const radius = size / 2 - 10;
@@ -16,9 +18,23 @@ const AttendancePieGraph = ({
   const strokeDashoffset = circumference - (circumference * percentage) / 100;
 
   return (
-    <View className={`my-2 px-2 rounded-xl bg-white ${containerStyles}`}>
-      <Text className="text-black font-poppins-medium text-lg">{title}</Text>
-      <View className="relative mt-10">
+    <View className={`rounded-xl bg-white ${containerStyles}`}>
+      {isFilter ? (
+        <View className="flex flex-row justify-between space-x-2 items-center">
+          <Text className="text-black font-poppins-bold text-lg">{title}</Text>
+          <TouchableOpacity className="border border-primary rounded-md px-3 flex flex-row justify-between items-center">
+            <Image className="h-[15px] w-[15px]" source={icons.filter} />
+            <Text className="text-primary font-poppins-medium text-xl">
+              {" "}
+              Filter
+            </Text>
+          </TouchableOpacity>
+        </View>
+      ) : (
+        <Text className="text-black font-poppins-medium text-lg">{title}</Text>
+      )}
+
+      <View className="relative mt-4">
         <Svg width={size} height={size} className={`mx-auto ${pieStyles}`}>
           <Circle
             cx={center}
@@ -49,7 +65,7 @@ const AttendancePieGraph = ({
             top: "50%",
             transform: [{translateY: -center / 3.9}],
           }}>
-          <Text className="text-[#404040] text-center text-4xl font-poppins-medium">
+          <Text className="text-[#404040] text-center text-4xl font-poppins-bold">
             {percentage}%
           </Text>
           <Text className="color-[#0EB01D] text-lg text-center font-poppins-medium">

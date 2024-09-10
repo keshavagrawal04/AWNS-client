@@ -1,4 +1,4 @@
-import {Image, Text, TouchableOpacity, View} from "react-native";
+import {Image, Linking, Text, TouchableOpacity, View} from "react-native";
 import React, {useState} from "react";
 import icons from "../assets/icons";
 import {useNavigation} from "@react-navigation/native";
@@ -81,7 +81,11 @@ const MeetingCard = ({
             <Text className="text-gray font-poppins-medium">LINK</Text>
           </View>
           <View className="w-2/3">
-            <Text className="text-primary underline font-poppins-medium">
+            <Text
+              className="text-primary underline font-poppins-medium"
+              onPress={() => {
+                Linking.openURL(link);
+              }}>
               {link}
             </Text>
           </View>

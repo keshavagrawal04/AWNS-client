@@ -1,33 +1,48 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Text, TouchableOpacity, View, ScrollView, Image} from "react-native";
 import {SafeAreaView} from "react-native-safe-area-context";
 import {Filter, Loader} from "../components";
 import icons from "../assets/icons";
 import {useNavigation} from "@react-navigation/native";
 import {useGetProjectsQuery} from "../services/api/project";
+import {useGetDepartmentCountsQuery} from "../services/api/user";
 
 const Department = () => {
   const {data: projectsData, isLoading} = useGetProjectsQuery();
   const [isFilter, setIsFilter] = useState(false);
+  const {data: countsData} = useGetDepartmentCountsQuery();
   const navigation = useNavigation();
+  const [departments, setDepartments] = useState([]);
 
-  const departments = [
-    {id: 1, name: "Frontend", counts: 15},
-    {id: 2, name: "Backend", counts: 7},
-    {id: 3, name: "UI/UX", counts: 2},
-    {id: 4, name: "Testing", counts: 8},
-    {id: 5, name: "Marketing", counts: 17},
-    {id: 6, name: "Intern", counts: 1},
+  const allDepartments = [
+    {id: 1, name: "Frontend", counts: 0},
+    {id: 2, name: "Backend", counts: 0},
+    {id: 3, name: "UI/UX", counts: 0},
+    {id: 4, name: "Testing", counts: 0},
+    {id: 5, name: "Marketing", counts: 0},
+    {id: 6, name: "Intern", counts: 0},
   ];
+
+  useEffect(() => {
+    if (countsData?.departmentCounts) {
+      const updatedDepartments = allDepartments.map(dept => {
+        const matchedDepartment = countsData.departmentCounts.find(
+          departmentData => departmentData._id === dept.name,
+        );
+        return matchedDepartment
+          ? {...dept, counts: matchedDepartment.count}
+          : dept;
+      });
+      setDepartments(updatedDepartments);
+    }
+  }, [countsData?.departmentCounts]);
 
   if (isLoading) return <Loader />;
 
   return (
     <SafeAreaView className="flex-1 px-4">
-      <View className="flex-row justify-between items-center py-4">
-        <Text className="text-2xl text-black font-poppins-bold">
-          Department
-        </Text>
+      <View className="flex-row justify-between items-center py-4 my-4">
+        <Text className="text-3xl text-black font-ubuntu-bold">Department</Text>
       </View>
 
       <ScrollView>

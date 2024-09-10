@@ -73,12 +73,12 @@ const Employees = () => {
           <Text className="text-black font-poppins-bold text-xl py-8">
             {employeesData?.data?.length} Employees
           </Text>
-          <View className="flex flex-row space-x-2">
+          <View className="flex flex-row items-center space-x-2">
             <TouchableOpacity
               onPress={() => {
                 setIsFilter(true);
               }}
-              className="border border-primary rounded-md px-4 py-1 flex flex-row justify-between items-center">
+              className="border border-primary rounded-md px-3 flex flex-row justify-between items-center">
               <Image className="h-[15px] w-[15px]" source={icons.filter} />
               <Text className="text-primary font-poppins-medium text-xl">
                 {" "}

@@ -9,7 +9,10 @@ const attendanceApi = service.injectEndpoints({
         body: data,
       }),
     }),
+    getAttendance: builder.query({
+      query: () => `attendance/employee/get`,
+    }),
   }),
 });
 
-export const {useAddAttendanceMutation} = attendanceApi;
+export const {useAddAttendanceMutation, useGetAttendanceQuery} = attendanceApi;

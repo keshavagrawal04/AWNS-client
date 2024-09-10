@@ -42,7 +42,7 @@ const EmployeeDashboard = () => {
         </View>
       </View>
       <ScrollView className="px-2">
-        <View className="px-4">
+        <View className="px-4 mt-4 mb-5">
           <View className="w-[100%] rounded-full flex flex-row bg-[#3470ed1a] p-1">
             <TouchableOpacity
               className={`w-[50%] ${

@@ -48,6 +48,14 @@ const EmployeeCard = ({employee, isSelected}) => {
           ? "border-2 border-primary bg-[#bad0ff33]"
           : "border-2 border-white bg-white"
       }`}>
+      <Text
+        className={`absolute top-4 right-4 rounded-full px-2 font-poppins-medium ${
+          employee?.isAttend
+            ? "text-green bg-green-light"
+            : "text-red bg-red-light"
+        }`}>
+        {employee?.isAttend ? "Present" : "On Leave"}
+      </Text>
       <View className="flex flex-row gap-2 overflow-hidden mb-2">
         {employee?.profileImage ? (
           <Image

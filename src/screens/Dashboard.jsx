@@ -1,6 +1,6 @@
 import {View, Text, ScrollView, Image, TouchableOpacity} from "react-native";
 import {SafeAreaView} from "react-native-safe-area-context";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import images from "../assets/images";
 import {AnalyticsCard, AttendancePieGraph, LogoutModal} from "../components";
 import {
@@ -20,7 +20,7 @@ const Dashboard = () => {
 
   return (
     <SafeAreaView>
-      <View className="flex align-middle content-center flex-row py-4 justify-between px-4">
+      <View className="flex align-middle content-center flex-row py-4 justify-between px-4 mb-5">
         <Text className="font-ubuntu-bold text-3xl text-black">Dashboard</Text>
         <View className="flex gap-3 justify-center align-middle content-center flex-row">
           <View className="flex align-middle items-center justify-center">
@@ -61,48 +61,64 @@ const Dashboard = () => {
               Total Employees
             </Text>
             <Text className="text-white font-poppins-bold text-xl">
-              {countsData?.data?.totalEmployees}
+              {countsData?.totalEmployees}
             </Text>
           </View>
         </View>
 
         <View className="py-5">
-          <Text className="text-black font-poppins-medium text-xl">
+          <Text className="text-black font-poppins-bold text-xl">
             Today Analytics
           </Text>
           <View className="flex flex-row justify-between mt-5">
-            <AnalyticsCard title={"Reported Employees"} count={140} />
-            <AnalyticsCard title={"Absent Employees"} count={10} />
+            <AnalyticsCard
+              title={"Reported Employees"}
+              count={countsData?.attended}
+            />
+            <AnalyticsCard
+              title={"Absent Employees"}
+              count={countsData?.notAttended}
+            />
           </View>
           <View className="flex flex-row justify-between mt-3">
-            <AnalyticsCard title={"Sanctioned Leaves"} count={20} />
-            <AnalyticsCard title={"Upcoming Birthdays"} count={5} />
+            <AnalyticsCard
+              title={"Sanctioned Leaves"}
+              count={countsData?.leaves}
+            />
+            <AnalyticsCard
+              title={"Upcoming Birthdays"}
+              count={countsData?.upcomingBirthdayCount}
+            />
           </View>
         </View>
 
-        <View className="bg-white rounded-xl p-5 mb-28">
-          <AttendancePieGraph title={"Attendance Today"} pieStyles={"my-4"}>
+        <View className="bg-white rounded-xl px-5 mb-28">
+          <AttendancePieGraph
+            title={"Attendance Today"}
+            pieStyles={"my-4"}
+            isFilter={true}
+            percentage={countsData?.percentage}>
             <View className="mt-4">
               <View className="flex flex-row justify-between">
-                <Text className="text-light-gray text- font-poppins-medium">
+                <Text className="text-light-gray font-poppins-medium">
                   Reported Employees
                 </Text>
-                <Text className="text-black text-lg font-poppins-medium">
-                  140
+                <Text className="text-black text-lg font-poppins-bold">
+                  {countsData?.attended}
                 </Text>
               </View>
               <View className="flex flex-row justify-between mt-2">
-                <Text className="text-light-gray text- font-poppins-medium">
+                <Text className="text-light-gray font-poppins-medium">
                   Absent Employees
                 </Text>
-                <Text className="text-black text-lg font-poppins-medium">
-                  10
+                <Text className="text-black text-lg font-poppins-bold">
+                  {countsData?.notAttended}
                 </Text>
               </View>
             </View>
           </AttendancePieGraph>
         </View>
-        <View className="mb-36" />
+        <View className="mb-44" />
       </ScrollView>
       <LogoutModal
         visible={isLogoutModalVisible}

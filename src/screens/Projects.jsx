@@ -73,14 +73,14 @@ const Projects = () => {
 
       <ScrollView>
         <View className="flex flex-row justify-between mt-2">
-          <Text className="text-3xl text-primary font-poppins-bold">
+          <Text className="text-2xl text-primary font-poppins-bold">
             {projectsData?.data?.length} Projects
           </Text>
           <TouchableOpacity
             onPress={() => {
               setIsFilter(true);
             }}
-            className="border border-primary rounded-md px-4 py-1 flex flex-row justify-between items-center">
+            className="border border-primary rounded-md px-3 flex flex-row justify-between items-center">
             <Image className="h-[15px] w-[15px]" source={icons.filter} />
             <Text className="text-primary font-poppins-medium text-xl">
               {" "}
